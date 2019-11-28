@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hr/Component/TextFormInput.dart';
 import 'package:hr/Provider/Colors.dart';
+import 'package:hr/Screens/HR/LoginPage.dart';
 import 'package:hr/Screens/HR/PersonalPage.dart';
 class ForgetPassword extends StatefulWidget {
   @override
@@ -33,8 +34,13 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                 child: Text("SUBMIT",style: TextStyle(color: Colors.white,fontSize: 17),),
                 color: ColorsProvider().primary,
                 onPressed: (){
+                  if(emailController.text==""){
+
+                  }
+                  else{
+                    _AlertDialog();
+                  }
             //      Navigator.push(context,MaterialPageRoute(builder: (context) => PersonalPage()));
-                  _neverSatisfied();
                 },
               ),
             ),
@@ -43,23 +49,23 @@ class _ForgetPasswordState extends State<ForgetPassword> {
       ),
     );
   }
-  Future<void> _neverSatisfied() async {
+  Future<void> _AlertDialog() async {
     return showDialog<void>(
       context: context,
       barrierDismissible: true, // user must tap button!
       builder: (BuildContext context) {
         return AlertDialog(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15.0),
+            borderRadius: BorderRadius.circular(10.0),
           ),
-          title: Text('New password send to your E-mail'),
+          title: Text('New password send to your E-mail',style: TextStyle(color: ColorsProvider().primary,fontSize: 15),),
           content: SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
                 RaisedButton(
                   child: Text('SIGN IN',style: TextStyle(color: Colors.white),),
                   onPressed: () {
-                    Navigator.of(context).pop();
+                    Navigator.of(context).pushReplacement(new MaterialPageRoute(builder: (context) => new LoginPage()));
                   },
                   color: ColorsProvider().primary,
                 ),
