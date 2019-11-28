@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:hr/Component/TextFormInput.dart';
 import 'package:hr/Provider/Colors.dart';
 import 'package:hr/Screens/HR/LoginPage.dart';
-import 'package:hr/Screens/HR/PersonalPage.dart';
 class ForgetPassword extends StatefulWidget {
   @override
   _ForgetPasswordState createState() => _ForgetPasswordState();
@@ -38,7 +37,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
 
                   }
                   else{
-                    _AlertDialog();
+                    _alertDialog();
                   }
             //      Navigator.push(context,MaterialPageRoute(builder: (context) => PersonalPage()));
                 },
@@ -49,7 +48,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
       ),
     );
   }
-  Future<void> _AlertDialog() async {
+  Future<void> _alertDialog() async {
     return showDialog<void>(
       context: context,
       barrierDismissible: true, // user must tap button!

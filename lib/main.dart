@@ -18,6 +18,9 @@ class MyApp extends StatelessWidget {
       DeviceOrientation.portraitDown,
     ]);
     return MaterialApp(
+      theme: ThemeData(
+        fontFamily: 'Roboto',
+      ),
       home: LoginPage(),
     );
   }
