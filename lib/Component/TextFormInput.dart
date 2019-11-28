@@ -15,5 +15,5 @@ TextFormField buildTextFormField(String labelText,int inputLength,TextInputType 
 AppBar buildAppBar(String title) {
   return AppBar(
     elevation: 0,
-    title: Text(title, style: TextStyle(color: ColorsProvider().primary,),),backgroundColor: Colors.white,);
+    title: Text(title, style: TextStyle(color: ColorsProvider().primary,),),backgroundColor: Colors.white,iconTheme: IconThemeData(color: ColorsProvider().primary),);
 }
