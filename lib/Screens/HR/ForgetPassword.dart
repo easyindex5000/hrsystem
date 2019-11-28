@@ -72,9 +72,9 @@ class _ForgetPasswordState extends State<ForgetPassword> {
               ],
             ),
           ),
-          actions: <Widget>[
-
-          ],
+//          actions: <Widget>[
+//
+//          ],
         );
       },
     );
