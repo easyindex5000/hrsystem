@@ -33,14 +33,44 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                 child: Text("SUBMIT",style: TextStyle(color: Colors.white,fontSize: 17),),
                 color: ColorsProvider().primary,
                 onPressed: (){
-                  Navigator.push(context,MaterialPageRoute(builder: (context) => PersonalPage()));
-
+            //      Navigator.push(context,MaterialPageRoute(builder: (context) => PersonalPage()));
+                  _neverSatisfied();
                 },
               ),
             ),
           ],
         ),
       ),
+    );
+  }
+  Future<void> _neverSatisfied() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: true, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15.0),
+          ),
+          title: Text('New password send to your E-mail'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                RaisedButton(
+                  child: Text('SIGN IN',style: TextStyle(color: Colors.white),),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  color: ColorsProvider().primary,
+                ),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+
+          ],
+        );
+      },
     );
   }
 }
