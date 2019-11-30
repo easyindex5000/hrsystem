@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:hr/Provider/Colors.dart';
-TextFormField buildTextFormField(String labelText,int inputLength,TextInputType type,TextEditingController customController,[bool autovalidation=false ]) {
+TextFormField buildTextFormField(String labelText,int inputLength,TextInputType type,TextEditingController customController,[bool enabled,IconData customIcon]) {
   return TextFormField(
     decoration: InputDecoration(
         labelText: labelText,
          counterText: "",
+      suffixIcon: Icon(customIcon)
     ),
     maxLength: inputLength,
     keyboardType: type,
     controller: customController,
-    autovalidate: autovalidation,
+    enabled: enabled,
   );
 }
 AppBar buildAppBar(String title) {

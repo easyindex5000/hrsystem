@@ -22,6 +22,7 @@ class _SalaryPageState extends State<SalaryPage> {
                    border: OutlineInputBorder(),
                    labelText: "Basic Salary",
                    hintText: "5,000 EGP",
+                   enabled: false
                  ),
                ),
                 SizedBox(height: 30,),
@@ -30,6 +31,7 @@ class _SalaryPageState extends State<SalaryPage> {
                     border: OutlineInputBorder(),
                     labelText: "Commisions",
                     hintText: "5,000 EGP",
+                    enabled: false
                   ),
                 ),
                 SizedBox(height: 30,),
@@ -38,6 +40,7 @@ class _SalaryPageState extends State<SalaryPage> {
                     border: OutlineInputBorder(),
                     labelText: "Over Time",
                     hintText: "5,000 EGP",
+                    enabled: false
                   ),
                 ),
                 SizedBox(height: 30,),
@@ -46,6 +49,7 @@ class _SalaryPageState extends State<SalaryPage> {
                     border: OutlineInputBorder(),
                     labelText: "Total",
                     hintText: "5,000 EGP",
+                    enabled: false
                   ),
                 ),
               ],
