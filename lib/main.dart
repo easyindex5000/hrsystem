@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:hr/Component/splashScreen.dart';
 import 'package:hr/Provider/HRProvider.dart';
 import 'package:provider/provider.dart';
 import 'package:hr/Screens/HR/LoginPage.dart';
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         fontFamily: 'Roboto',
       ),
-      home: LoginPage(),
+      home: SplashScreen(),
     );
   }
 }

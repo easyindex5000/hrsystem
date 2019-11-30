@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hr/Component/TextFormInput.dart';
 import 'package:hr/Provider/Colors.dart';
+import 'package:hr/Screens/HR/SecondContranctPage.dart';
 class NewContranctPage extends StatefulWidget {
   @override
   _NewContranctPageState createState() => _NewContranctPageState();
@@ -21,14 +22,16 @@ class _NewContranctPageState extends State<NewContranctPage> {
             Expanded(
               child: ListView(
                 children: <Widget>[
-                  buildTextFormField("Company Name",20,TextInputType.text,emailController),
-                  buildTextFormField("Company Representative",20,TextInputType.text,emailController),
-                  buildTextFormField("Job Title",20,TextInputType.text,emailController),
-                  buildTextFormField("Phone Number",20,TextInputType.text,emailController),
+                  buildTextFormField("Company Name in English",20,TextInputType.text,emailController),
+                  buildTextFormField("Company Name in Arabic",20,TextInputType.text,emailController),
+                  buildTextFormField("Web Site",20,TextInputType.text,emailController),
+                  buildTextFormField("Company Address",20,TextInputType.text,emailController),
+                  buildTextFormField("Employee Number",20,TextInputType.text,emailController),
+                  buildTextFormField("Employee Name",20,TextInputType.text,emailController),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Text("ID Front"),
+                      Text("Company Logo"),
                       ButtonTheme(
                         minWidth: 20,
                         height: 20,
@@ -48,27 +51,7 @@ class _NewContranctPageState extends State<NewContranctPage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Text("ID Back"),
-                      ButtonTheme(
-                        minWidth: 20,
-                        height: 20,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: new BorderRadius.circular(18.0),
-                            side: BorderSide(color: ColorsProvider().grayColor)
-                        ),
-
-                        child: RaisedButton(
-                          onPressed: (){},
-                          color: ColorsProvider().grayColor,
-                          child: Text("UPLOAD",style: TextStyle(color: Colors.white),),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Text("Commercial Number"),
+                      Text("Design File"),
                       ButtonTheme(
                         minWidth: 20,
                         height: 20,
@@ -106,6 +89,26 @@ class _NewContranctPageState extends State<NewContranctPage> {
                     ],
                   ),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Text("Commercial Number"),
+                      ButtonTheme(
+                        minWidth: 20,
+                        height: 20,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(18.0),
+                            side: BorderSide(color: ColorsProvider().grayColor)
+                        ),
+
+                        child: RaisedButton(
+                          onPressed: (){},
+                          color: ColorsProvider().grayColor,
+                          child: Text("UPLOAD",style: TextStyle(color: Colors.white),),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       ButtonTheme(
@@ -118,8 +121,11 @@ class _NewContranctPageState extends State<NewContranctPage> {
                       SizedBox(width: 30,),
                       ButtonTheme(
                         child: RaisedButton(
-                          onPressed: (){},
-                          child: Text("Sumbit",style: TextStyle(color: Colors.white),),
+                          onPressed: (){
+                            Navigator.push(context,MaterialPageRoute(builder: (context) => SecondContranctPage()));
+
+                          },
+                          child: Text("Next",style: TextStyle(color: Colors.white),),
                           color: ColorsProvider().primary,
                         ),
                       ),

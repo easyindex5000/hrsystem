@@ -6,6 +6,7 @@ class SalaryPage extends StatefulWidget {
 }
 
 class _SalaryPageState extends State<SalaryPage> {
+  double spaces=25;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,36 +18,41 @@ class _SalaryPageState extends State<SalaryPage> {
           child: Form(
             child: Column(
               children: <Widget>[
-               TextFormField(
-                 decoration: InputDecoration(
-                   border: OutlineInputBorder(),
-                   labelText: "Basic Salary",
-                   hintText: "5,000 EGP",
-                 ),
-               ),
-                SizedBox(height: 30,),
+
+                TextFormField(
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: "Basic Salary",
+                    hintText: "5,000 EGP",
+                  ),
+                  enabled: false,
+                ),
+                SizedBox(height: spaces,),
                 TextFormField(
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: "Commisions",
                     hintText: "5,000 EGP",
                   ),
+                  enabled: false,
                 ),
-                SizedBox(height: 30,),
+                SizedBox(height: spaces,),
                 TextFormField(
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: "Over Time",
                     hintText: "5,000 EGP",
                   ),
+                  enabled: false,
                 ),
-                SizedBox(height: 30,),
+                SizedBox(height: spaces,),
                 TextFormField(
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: "Total",
                     hintText: "5,000 EGP",
                   ),
+                  enabled: false,
                 ),
               ],
             ),

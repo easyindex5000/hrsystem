@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hr/Component/TextFormInput.dart';
+import 'package:hr/Component/customIcons.dart';
 import 'package:hr/Provider/Colors.dart';
 class ContractHistory extends StatefulWidget {
   @override
@@ -33,7 +34,7 @@ class _ContractHistoryState extends State<ContractHistory> {
                                 child: Text("Ahmed Mahmoud",style: TextStyle(color: ColorsProvider().primary,fontWeight: FontWeight.bold),),
                               ),
                               IconButton(
-                                icon: Icon(Icons.edit),
+                                icon: Icon(HRIcons.edit),
                                 onPressed: (){},
                               ),
                             ],
@@ -42,22 +43,31 @@ class _ContractHistoryState extends State<ContractHistory> {
                             Container(
                               height: 60,
                               child: Padding(
-                                padding: const EdgeInsets.all(16.0),
+                                padding: const EdgeInsets.only(left:16.0,right: 16.0),
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: <Widget>[
                                     InkWell(
                                       child: Container(
-                                          child: Center(child: Text("Show",style: TextStyle(color: Colors.black),)),
+                                          child: Center(child: Text("Show",style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),)),
                                       ),
                                       onTap: (){},
                                     ),
                                     Spacer(),
                                     Container(
+                                      width: 1,
+                                      height: double.infinity,
+                                      color: Colors.grey,
+                                    ),
+                                    Spacer(),
+                                    Container(
                                       child: Row(
                                         children: <Widget>[
-                                          Icon(Icons.add_alert),
-                                          Text("NOT COMPLETE",style: TextStyle(color: Colors.black),),
+                                          Padding(
+                                            padding: const EdgeInsets.only(right:8.0),
+                                            child: Icon(HRIcons.warning_true,color: Colors.amber,),
+                                          ),
+                                          Text("COMPLETE",style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),),
                                         ],
                                       ),
                                     ),
