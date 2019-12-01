@@ -1,19 +1,18 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:hr/Screens/HR/Home%20HR.dart';
 import 'package:hr/Screens/HR/LoginPage.dart';
 class SplashScreen extends StatefulWidget {
   _SplashScreenState createState() => _SplashScreenState();
 }
 class _SplashScreenState extends State<SplashScreen> {
-  bool _loading;
+  bool loading;
   double progressValue;
   String splash;
   @override
   void initState() {
     super.initState();
     splash = "lib/assets/images/SplashScreen.png";
-    _loading = false;
+    loading = false;
     progressValue = 0.0;
     updateProgress();
   }
@@ -66,7 +65,7 @@ class _SplashScreenState extends State<SplashScreen> {
         progressValue += 0.2;
         // we "finish" downloading here
         if (progressValue.toStringAsFixed(1) == '1.0') {
-          _loading = false;
+          loading = false;
           t.cancel();
           //to Navigate to Home Screen
           Navigator.of(context).pushReplacement(new MaterialPageRoute(builder: (context) => new LoginPage()));
@@ -74,8 +73,8 @@ class _SplashScreenState extends State<SplashScreen> {
       });
     });
   }
-  getAllData() async {
-   await Timer.periodic(Duration(milliseconds: 200), (Timer timer){
+  getAllData()  {
+    Timer.periodic(Duration(milliseconds: 200), (Timer timer){
       if(progressValue==1){
         timer.cancel();
       }
@@ -83,7 +82,7 @@ class _SplashScreenState extends State<SplashScreen> {
         progressValue += 0.2;
       });
     });
-    _loading = false;
+    loading = false;
 
 
     return true;

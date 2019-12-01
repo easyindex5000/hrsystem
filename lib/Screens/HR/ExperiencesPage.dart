@@ -9,7 +9,10 @@ class ExperiencesPage extends StatefulWidget {
 }
 
 class _ExperiencesPageState extends State<ExperiencesPage> {
-  TextEditingController passwordController = new TextEditingController();
+  TextEditingController
+  collageController,gpaController,jobController,companyController,passwordController,
+  startDateController,endDateController
+  = new TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -20,16 +23,27 @@ class _ExperiencesPageState extends State<ExperiencesPage> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: <Widget>[
-            CustomProgressBar(2),
+            CustomProgressBar(2,1),
             Expanded(
               child: ListView(
                 children: <Widget>[
-                  buildTextFormField("Collage Major",30,TextInputType.text,passwordController),
-                  buildTextFormField("GPA",30,TextInputType.text,passwordController),
-                  buildTextFormField("Last Job Title",30,TextInputType.text,passwordController),
-                  buildTextFormField("Company Name",30,TextInputType.text,passwordController),
-                  buildTextFormField("Strat Date",30,TextInputType.text,passwordController),
-                  buildTextFormField("End Date",30,TextInputType.text,passwordController),
+                  buildTextFormField("Collage Major",30,TextInputType.text,collageController),
+                  buildTextFormField("GPA",30,TextInputType.text,gpaController),
+                  buildTextFormField("Last Job Title",30,TextInputType.text,jobController),
+                  buildTextFormField("Company Name",30,TextInputType.text,companyController),
+                  Row(
+                    children: <Widget>[
+                      Expanded(
+                        flex: 4,
+                        child:buildTextFormField("Start Date",4,TextInputType.number,startDateController),
+                      ),
+                      Spacer(flex: 1,),
+                      Expanded(
+                        flex: 4,
+                        child:buildTextFormField("End Date",4,TextInputType.number,endDateController),
+                      ),
+                    ],
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[

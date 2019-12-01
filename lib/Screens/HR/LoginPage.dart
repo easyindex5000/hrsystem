@@ -51,9 +51,12 @@ class _LoginPageState extends State<LoginPage> {
                             maxLength: 32,
                             autovalidate: true,
                             validator: (value){
-                              if(value.length<8){
-                                return "Please Enter more than 8 ";
+                             if(value.isEmpty){
+                                return null;
                               }
+                            else if(value.length<8){
+                               return "Please Enter more than 8 ";
+                             }
                               else return null;
                             },
                             decoration: InputDecoration(

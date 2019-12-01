@@ -5,13 +5,24 @@ import 'package:hr/Provider/Colors.dart';
 
 class CustomProgressBar extends StatefulWidget {
   final int currentpage;
-  CustomProgressBar(this.currentpage);
+  final int custom;
+  CustomProgressBar(this.currentpage,this.custom);
   @override
   _CustomProgressBarState createState() => _CustomProgressBarState();
 }
 
 class _CustomProgressBarState extends State<CustomProgressBar> {
-  final _stepsText = [ "Personal", "Experiences", "Account"];
+  var _stepsText = [ "Personal", "Experiences", "Account"];
+  @override
+  void initState() {
+    if(widget.custom==1){
+      _stepsText = [ "Personal", "Experiences", "Account"];
+    }else if(widget.custom==2){
+      _stepsText = [ "Information", "AD Details"];
+    }
+    super.initState();
+  }
+
 
   final _stepCircleRadius = 14.0;
 
@@ -28,9 +39,7 @@ class _CustomProgressBarState extends State<CustomProgressBar> {
       fontSize: 12.0,
       fontWeight: FontWeight.bold,
       color: ColorsProvider().primary);
-
   int _curPage = 1;
-
   ProgressBar _getStepProgress() {
     setState(() {
       _curPage = widget.currentpage;

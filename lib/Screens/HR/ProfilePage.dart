@@ -1,11 +1,10 @@
 import 'dart:io';
-
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:hr/Component/CustomImagePicker.dart';
 import 'package:hr/Component/TextFormInput.dart';
 import 'package:hr/Provider/Colors.dart';
-import 'package:image_picker/image_picker.dart';
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -13,23 +12,19 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  TextEditingController fNameController = new TextEditingController();
-  TextEditingController lNameController = new TextEditingController();
-  TextEditingController mNameController = new TextEditingController();
-  TextEditingController iDNumberController = new TextEditingController();
-  TextEditingController phoneNumberController = new TextEditingController();
-  TextEditingController emailController = new TextEditingController();
-  TextEditingController idNumberController = new TextEditingController();
-  TextEditingController passportNumberController = new TextEditingController();
-  TextEditingController phoneController = new TextEditingController();
-  TextEditingController dateController = new TextEditingController();
-  TextEditingController passwordController = new TextEditingController();
+  TextEditingController
+  fNameController,lNameController,mNameController,iDNumberController,
+  phoneNumberController,emailController,idNumberController,passportNumberController,
+  phoneController,dateController,passwordController,collageMajorController,
+  gpaController,jobTitleController,companyNameController,bankController,
+  accountNumberController,ibaNNumberController = new TextEditingController();
+  String dropdownValue;
 var date="1980-1-1";
   File _image;
-
-  Future getImage() async {
-    var image = await ImagePicker.pickImage(source: ImageSource.camera);
-    setState(() {_image = image;});
+  @override
+  void initState() {
+    dropdownValue=null;
+    super.initState();
   }
   @override
   Widget build(BuildContext context) {
@@ -60,30 +55,17 @@ var date="1980-1-1";
                         ),
                       ],
                     ),
-                    onTap: (){},
+                    onTap: ()async{
+                       _image=await showAlert(context);
+                       setState(() {});
+                    },
                   ),
                   buildTextFormField("First Name",30,TextInputType.text,fNameController),
                   buildTextFormField("Middle Name",30,TextInputType.text,mNameController),
                   buildTextFormField("family Name",30,TextInputType.text,lNameController),
                   buildTextFormField("E-Mail",30,TextInputType.emailAddress,emailController),
-                  new DropdownButton<String>(
-                    items: <String>['A', 'B', 'C', 'D'].map((String value) {
-                      return new DropdownMenuItem<String>(
-                        value: value,
-                        child: new Text(value),
-                      );
-                    }).toList(),
-                    onChanged: (_) {},
-                  ),
-                  new DropdownButton<String>(
-                    items: <String>['A', 'B', 'C', 'D'].map((String value) {
-                      return new DropdownMenuItem<String>(
-                        value: value,
-                        child: new Text(value),
-                      );
-                    }).toList(),
-                    onChanged: (_) {},
-                  ),
+                  buildDropdownButton(),
+                  buildDropdownButton(),
                   buildTextFormField("ID Number",30,TextInputType.number,idNumberController),
                   buildTextFormField("Passport Number",30,TextInputType.number,passportNumberController),
                   InkWell(child: buildTextFormField("$date",30,TextInputType.text,passwordController,false,Icons.today),
@@ -109,7 +91,7 @@ var date="1980-1-1";
                         // optional. Shows only country name and flag
                         showCountryOnly: false,
                         // optional. Shows only country name and flag when popup is closed.
-                     //   showOnlyCountryCodeWhenClosed: false,
+                        //   showOnlyCountryCodeWhenClosed: false,
                         // optional. aligns the flag and the Text left
                         alignLeft: false,
 
@@ -119,7 +101,6 @@ var date="1980-1-1";
                       Expanded(flex: 4, child: buildTextFormField(" Phone Number",30,TextInputType.number,phoneController)),
                     ],
                   ),
-
                   SizedBox(height: 10,),
                   Text("Gender",style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),),
                   Row(
@@ -169,14 +150,26 @@ var date="1980-1-1";
                       Text("Married"),
                     ],
                   ),
-                  buildTextFormField("Collage Major",30,TextInputType.text,passwordController),
-                  buildTextFormField("GPA",30,TextInputType.text,passwordController),
-                  buildTextFormField("Last Job Title",30,TextInputType.text,passwordController),
-                  buildTextFormField("Company Name",30,TextInputType.text,passwordController),
-                  buildTextFormField("Start Date",30,TextInputType.text,passwordController),
-                  buildTextFormField("Bank Name",30,TextInputType.text,passwordController),
-                  buildTextFormField("Account Number",30,TextInputType.text,passwordController),
-                  buildTextFormField("iban Number",30,TextInputType.text,passwordController),
+                  buildTextFormField("Collage Major",30,TextInputType.text,collageMajorController),
+                  buildTextFormField("GPA",30,TextInputType.text,gpaController),
+                  buildTextFormField("Last Job Title",30,TextInputType.text,jobTitleController),
+                  buildTextFormField("Company Name",30,TextInputType.text,companyNameController),
+               Row(
+                 children: <Widget>[
+                   Expanded(
+                     flex: 4,
+                     child:buildTextFormField("Start Date",4,TextInputType.text,passwordController),
+                   ),
+                   Spacer(flex: 1,),
+                   Expanded(
+                     flex: 4,
+                     child:buildTextFormField("End Date",4,TextInputType.text,passwordController),
+                   )
+                 ],
+               ),
+                  buildTextFormField("Bank Name",30,TextInputType.text,bankController),
+                  buildTextFormField("Account Number",30,TextInputType.text,accountNumberController),
+                  buildTextFormField("iban Number",30,TextInputType.text,ibaNNumberController),
 
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -189,7 +182,25 @@ var date="1980-1-1";
                             borderRadius: new BorderRadius.circular(18.0),
                             side: BorderSide(color: ColorsProvider().grayColor)
                         ),
-
+                        child: RaisedButton(
+                          onPressed: (){},
+                          color: ColorsProvider().grayColor,
+                          child: Text("Upload",style: TextStyle(color: Colors.white),),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Text("Personal Photo"),
+                      ButtonTheme(
+                        minWidth: 20,
+                        height: 20,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(18.0),
+                            side: BorderSide(color: ColorsProvider().grayColor)
+                        ),
                         child: RaisedButton(
                           onPressed: (){},
                           color: ColorsProvider().grayColor,
@@ -229,27 +240,6 @@ var date="1980-1-1";
                             borderRadius: new BorderRadius.circular(18.0),
                             side: BorderSide(color: ColorsProvider().grayColor)
                         ),
-
-                        child: RaisedButton(
-                          onPressed: (){},
-                          color: ColorsProvider().grayColor,
-                          child: Text("Upload",style: TextStyle(color: Colors.white),),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Text("Personal Photo"),
-                      ButtonTheme(
-                        minWidth: 20,
-                        height: 20,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: new BorderRadius.circular(18.0),
-                            side: BorderSide(color: ColorsProvider().grayColor)
-                        ),
-
                         child: RaisedButton(
                           onPressed: (){},
                           color: ColorsProvider().grayColor,
@@ -281,5 +271,32 @@ var date="1980-1-1";
       ),
 
     );
+  }
+  DropdownButton<String> buildDropdownButton() {
+    return DropdownButton<String>(
+      value: dropdownValue,hint: Text("hint"),
+      isExpanded: true,
+      icon: Icon(Icons.keyboard_arrow_down),
+      iconSize: 24,
+      elevation: 16,
+      style: TextStyle(
+          color: Colors.grey[600]
+      ),
+      underline: Container(
+        height: 1,
+        color: Colors.grey[600],
+      ),
+      onChanged: (String newValue) {
+        setState(() {
+          dropdownValue = newValue;
+        });
+      },
+      items: <String>['One', 'Two', 'Free', 'Four']
+          .map<DropdownMenuItem<String>>((String value) {
+        return DropdownMenuItem<String>(
+          value: value,
+          child: Text(value),
+        );
+      }).toList(),);
   }
 }

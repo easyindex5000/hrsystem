@@ -65,7 +65,7 @@ class _ContractHistoryState extends State<ContractHistory> {
                                         children: <Widget>[
                                           Padding(
                                             padding: const EdgeInsets.only(right:8.0),
-                                            child: Icon(HRIcons.warning_true,color: Colors.amber,),
+                                            child: Icon(HRIcons.warning_true,color: Colors.green,),
                                           ),
                                           Text("COMPLETE",style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),),
                                         ],
