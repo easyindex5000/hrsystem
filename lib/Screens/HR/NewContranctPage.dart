@@ -1,9 +1,13 @@
+import 'dart:io';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:hr/Component/CustomImagePicker.dart';
 import 'package:hr/Component/TextFormInput.dart';
 import 'package:hr/Component/customProgress.dart';
 import 'package:hr/Provider/Colors.dart';
 import 'package:hr/Screens/HR/SecondContranctPage.dart';
+import 'package:multi_image_picker/multi_image_picker.dart';
+import 'dart:async';
 class NewContranctPage extends StatefulWidget {
   @override
   _NewContranctPageState createState() => _NewContranctPageState();
@@ -14,10 +18,64 @@ class _NewContranctPageState extends State<NewContranctPage> {
   phoneController,webSiteController,companyAddressController,employeeNumberController,
   employeeNameController, emailController = new TextEditingController();
   String dropdownValue;
+  String company="companyLogo",tax="Tax ID",commercial="Commercial Number";
+  File companyLogo,taxId,commercialNumber;
+  int imageCounter=0;
+  final _formKey = GlobalKey<FormState>();
   @override
   void initState() {
     dropdownValue=null;
     super.initState();
+  }
+  List<Asset> images = List<Asset>();
+  String _error = 'No Error Dectected';
+  Widget buildGridView() {
+    return GridView.count(
+      crossAxisCount: 3,
+      children: List.generate(images.length, (index) {
+        Asset asset = images[index];
+        return AssetThumb(
+          asset: asset,
+          width: 300,
+          height: 300,
+        );
+      }),
+    );
+  }
+  Future<void> loadAssets() async {
+    List<Asset> resultList = List<Asset>();
+    String error = 'No Error Dectected';
+
+    try {
+      resultList = await MultiImagePicker.pickImages(
+        maxImages: 4,
+        enableCamera: true,
+        selectedAssets: images,
+        cupertinoOptions: CupertinoOptions(takePhotoIcon: "chat"),
+        materialOptions: MaterialOptions(
+          actionBarColor: "#003463",
+          actionBarTitle: "Upload Image",
+          allViewTitle: "Selected Photos",
+          useDetailsView: false,
+          selectCircleStrokeColor: "#000000",
+        ),
+      );
+      for (var r in resultList) {
+        var t = await r.filePath;
+        print(t);
+      }
+    } on Exception catch (e) {
+      error = e.toString();
+    }
+    // If the widget was removed from the tree while the asynchronous platform
+    // message was in flight, we want to discard the reply rather than calling
+    // setState to update our non-existent appearance.
+    if (!mounted) return;
+
+    setState(() {
+      images = resultList;
+      _error = error;
+    });
   }
   @override
   Widget build(BuildContext context) {
@@ -55,7 +113,7 @@ class _NewContranctPageState extends State<NewContranctPage> {
                   buildTextFormField("Employee Name",20,TextInputType.text,employeeNameController),
                   Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Text("Company Logo"),
+                      Text("$company"),
                       ButtonTheme(
                         minWidth: 20,
                         height: 20,
@@ -64,7 +122,12 @@ class _NewContranctPageState extends State<NewContranctPage> {
                             side: BorderSide(color: ColorsProvider().grayColor)
                         ),
                         child: RaisedButton(
-                          onPressed: (){},
+                          onPressed: ()async{
+                            companyLogo=await showAlert(context).then((res){
+                              company=res.path.substring(res.path.lastIndexOf("/")+1);
+                            });
+                            setState(() {});
+                          },
                           color: ColorsProvider().grayColor,
                           child: Text("UPLOAD",style: TextStyle(color: Colors.white),),
                         ),
@@ -74,7 +137,7 @@ class _NewContranctPageState extends State<NewContranctPage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Text("Design File"),
+                      Text("Design File ($imageCounter/4)"),
                       ButtonTheme(
                         minWidth: 20,
                         height: 20,
@@ -82,9 +145,12 @@ class _NewContranctPageState extends State<NewContranctPage> {
                             borderRadius: new BorderRadius.circular(18.0),
                             side: BorderSide(color: ColorsProvider().grayColor)
                         ),
-
                         child: RaisedButton(
-                          onPressed: (){},
+                          onPressed: (){
+                            loadAssets().then((res){
+                              imageCounter=images.length;
+                            });
+                          },
                           color: ColorsProvider().grayColor,
                           child: Text("UPLOAD",style: TextStyle(color: Colors.white),),
                         ),
@@ -94,7 +160,7 @@ class _NewContranctPageState extends State<NewContranctPage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Text("Tax ID"),
+                      Text("$tax"),
                       ButtonTheme(
                         minWidth: 20,
                         height: 20,
@@ -102,9 +168,12 @@ class _NewContranctPageState extends State<NewContranctPage> {
                             borderRadius: new BorderRadius.circular(18.0),
                             side: BorderSide(color: ColorsProvider().grayColor)
                         ),
-
                         child: RaisedButton(
-                          onPressed: (){},
+                          onPressed: ()async{
+                            taxId=await showAlert(context).then((res){
+                              tax=res.path.substring(res.path.lastIndexOf("/")+1);
+                            });setState(() {});
+                          },
                           color: ColorsProvider().grayColor,
                           child: Text("UPLOAD",style: TextStyle(color: Colors.white),),
                         ),
@@ -114,7 +183,7 @@ class _NewContranctPageState extends State<NewContranctPage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Text("Commercial Number"),
+                      Text("$commercial"),
                       ButtonTheme(
                         minWidth: 20,
                         height: 20,
@@ -122,9 +191,13 @@ class _NewContranctPageState extends State<NewContranctPage> {
                             borderRadius: new BorderRadius.circular(18.0),
                             side: BorderSide(color: ColorsProvider().grayColor)
                         ),
-
                         child: RaisedButton(
-                          onPressed: (){},
+                          onPressed: ()async{
+                            commercialNumber=await showAlert(context).then((res){
+                              commercial=res.path.substring(res.path.lastIndexOf("/")+1);
+                            });
+                            setState(() {});
+                          },
                           color: ColorsProvider().grayColor,
                           child: Text("UPLOAD",style: TextStyle(color: Colors.white),),
                         ),
@@ -136,7 +209,9 @@ class _NewContranctPageState extends State<NewContranctPage> {
                     children: <Widget>[
                       ButtonTheme(
                         child:  OutlineButton(
-                      onPressed: (){},
+                      onPressed: (){
+
+                      },
                            child: Text("Save For Later",style: TextStyle(color: ColorsProvider().primary),),
                            color: ColorsProvider().primary,
                           ),
@@ -164,7 +239,8 @@ class _NewContranctPageState extends State<NewContranctPage> {
   }
   DropdownButton<String> buildDropdownButton() {
     return DropdownButton<String>(
-              value: dropdownValue,hint: Text("hint"),
+              value: dropdownValue,
+              hint: Text("hint"),
               isExpanded: true,
               icon: Icon(Icons.keyboard_arrow_down),
               iconSize: 24,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hr/Component/TextFormInput.dart';
 import 'package:hr/Component/customIcons.dart';
 import 'package:hr/Provider/Colors.dart';
+import 'package:hr/Screens/HR/NewContranctPage.dart';
 class ContractHistory extends StatefulWidget {
   @override
   _ContractHistoryState createState() => _ContractHistoryState();
@@ -35,7 +36,9 @@ class _ContractHistoryState extends State<ContractHistory> {
                               ),
                               IconButton(
                                 icon: Icon(HRIcons.edit),
-                                onPressed: (){},
+                                onPressed: (){
+                                  Navigator.push(context,MaterialPageRoute(builder: (context) => NewContranctPage()));
+                                },
                               ),
                             ],
                           ),
@@ -51,7 +54,9 @@ class _ContractHistoryState extends State<ContractHistory> {
                                       child: Container(
                                           child: Center(child: Text("Show",style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),)),
                                       ),
-                                      onTap: (){},
+                                      onTap: (){
+                                        Navigator.push(context,MaterialPageRoute(builder: (context) => NewContranctPage()));
+                                      },
                                     ),
                                     Spacer(),
                                     Container(
@@ -65,9 +70,9 @@ class _ContractHistoryState extends State<ContractHistory> {
                                         children: <Widget>[
                                           Padding(
                                             padding: const EdgeInsets.only(right:8.0),
-                                            child: Icon(HRIcons.warning_true,color: Colors.green,),
+                                            child: Icon(HRIcons.warning_true,color: Colors.amber,),
                                           ),
-                                          Text("COMPLETE",style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),),
+                                          Text("NOT COMPLETE",style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),),
                                         ],
                                       ),
                                     ),

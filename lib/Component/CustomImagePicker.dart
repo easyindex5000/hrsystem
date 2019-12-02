@@ -16,24 +16,57 @@ Future<File> showAlert(BuildContext context) async {
 //    barrierDismissible: true, // user must tap button!
     builder: (BuildContext context) {
       return Container(
-        height: 200,
+        height: 120,
+        decoration: new BoxDecoration(
+            borderRadius: new BorderRadius.only(
+                topLeft: const Radius.circular(40.0),
+                topRight: const Radius.circular(40.0))),
       //  content: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              IconButton(
-                icon: Icon(Icons.camera_alt,color: ColorsProvider().primary,size: 35,),
-                onPressed: ()async{
-                  Navigator.of(context).pop(await getImageFromCamera());
-                },
-              ),
-              IconButton(
-                icon: Icon(Icons.image,color: ColorsProvider().primary,size: 35,),
-                onPressed: ()async{
-                  Navigator.of(context).pop(await getImageFromGallery());
-                },
-              ),
-            ],
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                InkWell(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Text("Delete Photo",style: TextStyle(color: Colors.red,fontWeight: FontWeight.bold,fontSize: 15),)
+                    ],
+                  ),
+                  onTap: (){
+                    Navigator.of(context).pop();
+                  },
+                ),
+                Divider(),
+                InkWell(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Text("Take Photo",style: TextStyle(color:ColorsProvider().primary,fontWeight: FontWeight.bold,fontSize: 15),)
+                    ],
+                  ),
+                  onTap: ()async{
+                    Navigator.of(context).pop(await getImageFromCamera());
+                  },
+                ),
+                Divider(),
+                InkWell(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Text("Choose Photo",style: TextStyle(color:ColorsProvider().primary,fontWeight: FontWeight.bold,fontSize: 15),)
+                    ],
+                  ),
+                  onTap: ()async{
+                    Navigator.of(context).pop(await getImageFromGallery());
+                  },
+                ),
+              ],
+            ),
           ),
       //  ),
       );
