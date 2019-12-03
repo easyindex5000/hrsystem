@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:hr/Component/Citys.dart';
 import 'package:hr/Component/CustomImagePicker.dart';
 import 'package:hr/Component/TextFormInput.dart';
 import 'package:hr/Component/customProgress.dart';
@@ -17,17 +18,23 @@ class _NewContranctPageState extends State<NewContranctPage> {
   TextEditingController companyNameAController,companyNameEController,mobileController,
   phoneController,webSiteController,companyAddressController,employeeNumberController,
   employeeNameController, emailController = new TextEditingController();
-  String dropdownValue;
   String company="companyLogo",tax="Tax ID",commercial="Commercial Number";
   File companyLogo,taxId,commercialNumber;
   int imageCounter=0;
+  String dropdownValue=City.cities[0].keys.elementAt(0);
+  String dropdownValue2;
+  List<String>city=[];
+  // ignore: unused_field
   final _formKey = GlobalKey<FormState>();
   @override
   void initState() {
-    dropdownValue=null;
+    dropdownValue2=City.cities[0][dropdownValue].elementAt(0);
+    //looping in class and add data  to list
+    for(int i=0;i<City.cities.length;i++){city.addAll(City.cities[0].keys);}
     super.initState();
   }
   List<Asset> images = List<Asset>();
+  // ignore: unused_field
   String _error = 'No Error Dectected';
   Widget buildGridView() {
     return GridView.count(
@@ -45,7 +52,6 @@ class _NewContranctPageState extends State<NewContranctPage> {
   Future<void> loadAssets() async {
     List<Asset> resultList = List<Asset>();
     String error = 'No Error Dectected';
-
     try {
       resultList = await MultiImagePicker.pickImages(
         maxImages: 4,
@@ -92,9 +98,17 @@ class _NewContranctPageState extends State<NewContranctPage> {
                 children: <Widget>[
                   buildTextFormField("Company Name in English",20,TextInputType.text,companyNameEController),
                   buildTextFormField("Company Name in Arabic",20,TextInputType.text,companyNameAController),
-                  buildDropdownButton(),
-                  buildDropdownButton(),
-                  buildDropdownButton(),
+                  buildDropdownButton(city, (String newValue) {
+                    setState(() {
+                      dropdownValue = newValue;
+                      dropdownValue2=null;
+                    });
+                  },dropdownValue),
+                  buildDropdownButton(City.cities[0][dropdownValue], (String newValue) {
+                    setState(() {
+                      dropdownValue2 = newValue;
+                    },);
+                  },dropdownValue2),
                   Row(children: <Widget>[
                       Expanded( flex: 1, child: InkWell(child:CountryCodePicker(initialSelection: 'EG', favorite: ['+2','EG','+966','SAR'],
                       ),),),
@@ -123,6 +137,7 @@ class _NewContranctPageState extends State<NewContranctPage> {
                         ),
                         child: RaisedButton(
                           onPressed: ()async{
+                            // ignore: missing_return
                             companyLogo=await showAlert(context).then((res){
                               company=res.path.substring(res.path.lastIndexOf("/")+1);
                             });
@@ -170,6 +185,7 @@ class _NewContranctPageState extends State<NewContranctPage> {
                         ),
                         child: RaisedButton(
                           onPressed: ()async{
+                            // ignore: missing_return
                             taxId=await showAlert(context).then((res){
                               tax=res.path.substring(res.path.lastIndexOf("/")+1);
                             });setState(() {});
@@ -193,6 +209,7 @@ class _NewContranctPageState extends State<NewContranctPage> {
                         ),
                         child: RaisedButton(
                           onPressed: ()async{
+                            // ignore: missing_return
                             commercialNumber=await showAlert(context).then((res){
                               commercial=res.path.substring(res.path.lastIndexOf("/")+1);
                             });
@@ -236,33 +253,5 @@ class _NewContranctPageState extends State<NewContranctPage> {
         ),
       ),
     );
-  }
-  DropdownButton<String> buildDropdownButton() {
-    return DropdownButton<String>(
-              value: dropdownValue,
-              hint: Text("hint"),
-              isExpanded: true,
-              icon: Icon(Icons.keyboard_arrow_down),
-              iconSize: 24,
-              elevation: 16,
-              style: TextStyle(
-                  color: Colors.grey[600]
-              ),
-              underline: Container(
-                height: 1,
-                color: Colors.grey[600],
-              ),
-              onChanged: (String newValue) {
-                setState(() {
-                  dropdownValue = newValue;
-                });
-              },
-              items: <String>['One', 'Two', 'Free', 'Four']
-                  .map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList(),);
   }
 }

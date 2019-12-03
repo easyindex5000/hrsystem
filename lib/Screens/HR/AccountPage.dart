@@ -9,7 +9,7 @@ class AccountPage extends StatefulWidget {
 
 class _AccountPageState extends State<AccountPage> {
   TextEditingController bankNameController,
-  BankAccount,ibaNController = new TextEditingController();
+  bankAccountController,ibaNController = new TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class _AccountPageState extends State<AccountPage> {
               child: ListView(
                 children: <Widget>[
                   buildTextFormField("Bank Name",30,TextInputType.text,bankNameController),
-                  buildTextFormField("Bank Account",30,TextInputType.text,BankAccount),
+                  buildTextFormField("Bank Account",30,TextInputType.text,bankAccountController),
                   buildTextFormField("Iban code",30,TextInputType.text,ibaNController),
                   SizedBox(height: 30,),
                 ],

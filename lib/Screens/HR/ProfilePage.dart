@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:hr/Component/Citys.dart';
 import 'package:hr/Component/CustomImagePicker.dart';
 import 'package:hr/Component/TextFormInput.dart';
 import 'package:hr/Provider/Colors.dart';
@@ -19,13 +20,19 @@ class _ProfilePageState extends State<ProfilePage> {
   phoneController,dateController,passwordController,collageMajorController,
   gpaController,jobTitleController,companyNameController,bankController,
   accountNumberController,ibaNNumberController = new TextEditingController();
-  String dropdownValue;
+  String dropdownValue=City.cities[0].keys.elementAt(0);
+  String dropdownValue2;
   final _formKey = GlobalKey<FormState>();
   var date="1980-1-1";
-  File _image;
+  File _image,userId,cv,certification;
+  String userIdString="ID.Jpg",cvString="Ahmed.pdf",certificationString="Certification";
+  bool male=true,female=false,single=true,married=false;
+  List<String>city=[];
   @override
   void initState() {
-    dropdownValue=null;
+    dropdownValue2=City.cities[0][dropdownValue].elementAt(0);
+    //looping in class and add data  to list
+    for(int i=0;i<City.cities.length;i++){city.addAll(City.cities[0].keys);}
     super.initState();
   }
   @override
@@ -64,12 +71,21 @@ class _ProfilePageState extends State<ProfilePage> {
                          setState(() {});
                       },
                     ),
-                    buildTextFormField("First Name",30,TextInputType.text,fNameController),
+                    buildTextFormField("First Name",30,TextInputType.text,fNameController,true,null,customValidation),
                     buildTextFormField("Middle Name",30,TextInputType.text,mNameController),
                     buildTextFormField("family Name",30,TextInputType.text,lNameController),
                     buildTextFormField("E-Mail",30,TextInputType.emailAddress,emailController),
-                    buildDropdownButton(),
-                    buildDropdownButton(),
+                    buildDropdownButton(city, (String newValue) {
+                      setState(() {
+                        dropdownValue = newValue;
+                        dropdownValue2=null;
+                      });
+                    },dropdownValue),
+                    buildDropdownButton(City.cities[0][dropdownValue], (String newValue) {
+                      setState(() {
+                        dropdownValue2 = newValue;
+                      },);
+                    },dropdownValue2),
                     buildTextFormField("ID Number",30,TextInputType.number,idNumberController),
                     buildTextFormField("Passport Number",30,TextInputType.number,passportNumberController),
                     InkWell(child: buildTextFormField("$date",30,TextInputType.text,passwordController,false,Icons.today),
@@ -99,7 +115,6 @@ class _ProfilePageState extends State<ProfilePage> {
                           //   showOnlyCountryCodeWhenClosed: false,
                           // optional. aligns the flag and the Text left
                           alignLeft: false,
-
                         ),
                         ),
                         ),
@@ -111,20 +126,20 @@ class _ProfilePageState extends State<ProfilePage> {
                     Row(
                       children: <Widget>[
                         Checkbox(
-                          value: false,
+                          value: male,
                           onChanged: (bool value){
                             setState(() {
-                              //false=value
+                              female=false;male=true;
                             });
                           },
                         ),
                         Text("Male"),
                         SizedBox(width: 20,),
                         Checkbox(
-                          value: false,
+                          value: female,
                           onChanged: (bool value){
                             setState(() {
-                              //false=value
+                                male=false;female=true;
                             });
                           },
                         ),
@@ -135,20 +150,20 @@ class _ProfilePageState extends State<ProfilePage> {
                     Row(
                       children: <Widget>[
                         Checkbox(
-                          value: false,
+                          value: single,
                           onChanged: (bool value){
                             setState(() {
-                              //false=value
+                              married=false;single=true;
                             });
                           },
                         ),
                         Text("Single"),
                         SizedBox(width: 12,),
                         Checkbox(
-                          value: false,
+                          value: married,
                           onChanged: (bool value){
                             setState(() {
-                              //false=value
+                              single=false;married=true;
                             });
                           },
                         ),
@@ -177,7 +192,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        Text("Personal Photo"),
+                        Text("$userIdString"),
                         ButtonTheme(
                           minWidth: 20,
                           height: 20,
@@ -188,7 +203,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           child: RaisedButton(
                             onPressed: (){},
                             color: ColorsProvider().grayColor,
-                            child: Text("Upload",style: TextStyle(color: Colors.white),),
+                            child: Text("CHANGE",style: TextStyle(color: Colors.white),),
                           ),
                         ),
                       ],
@@ -196,26 +211,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        Text("Personal Photo"),
-                        ButtonTheme(
-                          minWidth: 20,
-                          height: 20,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: new BorderRadius.circular(18.0),
-                              side: BorderSide(color: ColorsProvider().grayColor)
-                          ),
-                          child: RaisedButton(
-                            onPressed: (){},
-                            color: ColorsProvider().grayColor,
-                            child: Text("Upload",style: TextStyle(color: Colors.white),),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Text("Personal Photo"),
+                        Text("$certificationString"),
                         ButtonTheme(
                           minWidth: 20,
                           height: 20,
@@ -227,7 +223,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           child: RaisedButton(
                             onPressed: (){},
                             color: ColorsProvider().grayColor,
-                            child: Text("Upload",style: TextStyle(color: Colors.white),),
+                            child: Text("CHANGE",style: TextStyle(color: Colors.white),),
                           ),
                         ),
                       ],
@@ -235,7 +231,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        Text("Personal Photo"),
+                        Text("$cvString"),
                         ButtonTheme(
                           minWidth: 20,
                           height: 20,
@@ -246,7 +242,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           child: RaisedButton(
                             onPressed: (){},
                             color: ColorsProvider().grayColor,
-                            child: Text("Upload",style: TextStyle(color: Colors.white),),
+                            child: Text("CHANGE",style: TextStyle(color: Colors.white),),
                           ),
                         ),
                       ],
@@ -277,32 +273,10 @@ class _ProfilePageState extends State<ProfilePage> {
 
     );
   }
-  DropdownButton<String> buildDropdownButton() {
-    return DropdownButton<String>(
-      value: dropdownValue,
-      hint: Text("hint"),
-      isExpanded: true,
-      icon: Icon(Icons.keyboard_arrow_down),
-      iconSize: 24,
-      elevation: 16,
-      style: TextStyle(
-          color: Colors.grey[600]
-      ),
-      underline: Container(
-        height: 1,
-        color: Colors.grey[600],
-      ),
-      onChanged: (String newValue) {
-        setState(() {
-          dropdownValue = newValue;
-        });
-      },
-      items: <String>['One', 'Two', 'Free', 'Four']
-          .map<DropdownMenuItem<String>>((String value) {
-        return DropdownMenuItem<String>(
-          value: value,
-          child: Text(value),
-        );
-      }).toList(),);
+  String customValidation(dynamic value) {
+    if (value.isEmpty) {
+      return null;
+    }
+    return 'Email is not valid';
   }
 }
