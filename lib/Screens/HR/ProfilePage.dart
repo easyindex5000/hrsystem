@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:country_code_picker/country_code_picker.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:hr/Component/Citys.dart';
@@ -71,10 +72,10 @@ class _ProfilePageState extends State<ProfilePage> {
                          setState(() {});
                       },
                     ),
-                    buildTextFormField("First Name",30,TextInputType.text,fNameController,true,null,customValidation),
-                    buildTextFormField("Middle Name",30,TextInputType.text,mNameController),
-                    buildTextFormField("family Name",30,TextInputType.text,lNameController),
-                    buildTextFormField("E-Mail",30,TextInputType.emailAddress,emailController),
+                    buildTextFormField("First Name",20,TextInputType.text,fNameController,true,null,null,null,customValidation),
+                    buildTextFormField("Middle Name",20,TextInputType.text,mNameController),
+                    buildTextFormField("family Name",20,TextInputType.text,lNameController),
+                    buildTextFormField("E-Mail",20,TextInputType.emailAddress,emailController),
                     buildDropdownButton(city, (String newValue) {
                       setState(() {
                         dropdownValue = newValue;
@@ -86,9 +87,9 @@ class _ProfilePageState extends State<ProfilePage> {
                         dropdownValue2 = newValue;
                       },);
                     },dropdownValue2),
-                    buildTextFormField("ID Number",30,TextInputType.number,idNumberController),
-                    buildTextFormField("Passport Number",30,TextInputType.number,passportNumberController),
-                    InkWell(child: buildTextFormField("$date",30,TextInputType.text,passwordController,false,Icons.today),
+                    buildTextFormField("ID Number",20,TextInputType.number,idNumberController),
+                    buildTextFormField("Passport Number",20,TextInputType.number,passportNumberController),
+                    InkWell(child: buildTextFormField("$date",20,TextInputType.text,passwordController,false,Icons.today),
                     onTap: (){
                       DatePicker.showDatePicker(context,
                         showTitleActions: true,
@@ -118,7 +119,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                         ),
                         ),
-                        Expanded(flex: 4, child: buildTextFormField(" Phone Number",30,TextInputType.number,phoneController)),
+                        Expanded(flex: 4, child: buildTextFormField(" Phone Number",20,TextInputType.number,phoneController)),
                       ],
                     ),
                     SizedBox(height: 10,),
@@ -170,24 +171,24 @@ class _ProfilePageState extends State<ProfilePage> {
                         Text("Married"),
                       ],
                     ),
-                    buildTextFormField("Collage Major",30,TextInputType.text,collageMajorController),
-                    buildTextFormField("GPA",30,TextInputType.text,gpaController),
-                    buildTextFormField("Last Job Title",30,TextInputType.text,jobTitleController),
-                    buildTextFormField("Company Name",30,TextInputType.text,companyNameController),
+                    buildTextFormField("Collage Major",20,TextInputType.text,collageMajorController),
+                    buildTextFormField("GPA",20,TextInputType.text,gpaController),
+                    buildTextFormField("Last Job Title",20,TextInputType.text,jobTitleController),
+                    buildTextFormField("Company Name",20,TextInputType.text,companyNameController),
                  Row(
                    children: <Widget>[
                      Expanded(flex: 4,
-                       child:buildTextFormField("Start Date",4,TextInputType.text,passwordController),
+                       child:buildTextFormField("Start Date",4,TextInputType.number,passwordController,null,null,"10/2019"),
                      ),
                      Spacer(flex: 1,),
                      Expanded(flex: 4,
-                       child:buildTextFormField("End Date",4,TextInputType.text,passwordController),
+                       child:buildTextFormField("End Date",4,TextInputType.number,passwordController,null,null,"10/2020"),
                      )
                    ],
                  ),
-                    buildTextFormField("Bank Name",30,TextInputType.text,bankController),
-                    buildTextFormField("Account Number",30,TextInputType.text,accountNumberController),
-                    buildTextFormField("iban Number",30,TextInputType.text,ibaNNumberController),
+                    buildTextFormField("Bank Name",20,TextInputType.text,bankController),
+                    buildTextFormField("Account Number",20,TextInputType.number,accountNumberController),
+                    buildTextFormField("iban Number",20,TextInputType.number,ibaNNumberController),
 
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -201,7 +202,13 @@ class _ProfilePageState extends State<ProfilePage> {
                               side: BorderSide(color: ColorsProvider().grayColor)
                           ),
                           child: RaisedButton(
-                            onPressed: (){},
+                            onPressed: ()async{
+                              // ignore: missing_return
+                              userId=await showAlert(context).then((res){
+                                userIdString=res.path.substring(res.path.lastIndexOf("/")+1);
+                              });
+                              setState(() {});
+                            },
                             color: ColorsProvider().grayColor,
                             child: Text("CHANGE",style: TextStyle(color: Colors.white),),
                           ),
@@ -221,7 +228,13 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
 
                           child: RaisedButton(
-                            onPressed: (){},
+                            onPressed: ()async{
+                              // ignore: missing_return
+                              certification=await showAlert(context).then((res){
+                                certificationString=res.path.substring(res.path.lastIndexOf("/")+1);
+                              });
+                              setState(() {});
+                            },
                             color: ColorsProvider().grayColor,
                             child: Text("CHANGE",style: TextStyle(color: Colors.white),),
                           ),
@@ -240,7 +253,13 @@ class _ProfilePageState extends State<ProfilePage> {
                               side: BorderSide(color: ColorsProvider().grayColor)
                           ),
                           child: RaisedButton(
-                            onPressed: (){},
+                            onPressed: ()async{
+                              // ignore: missing_return
+                              cv = await FilePicker.getFile(type: FileType.CUSTOM,fileExtension: "pdf").then((res){
+                                cvString=res.path.substring(res.path.lastIndexOf("/")+1);
+                              });
+                              setState(() {});
+                            },
                             color: ColorsProvider().grayColor,
                             child: Text("CHANGE",style: TextStyle(color: Colors.white),),
                           ),
@@ -274,7 +293,8 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
   String customValidation(dynamic value) {
-    if (value.isEmpty) {
+    if (value.isEmpty ||
+        !RegExp("^[0-9]{3}").hasMatch(value)) {
       return null;
     }
     return 'Email is not valid';

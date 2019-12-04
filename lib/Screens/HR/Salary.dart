@@ -15,15 +15,12 @@ class _SalaryPageState extends State<SalaryPage> {
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Container(
-          child: Form(
-            child: Column(
+          child: Column(
               children: <Widget>[
-
                 TextFormField(
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: "Basic Salary",
-                    hintText: "5,000 EGP",
                   ),
                   enabled: false,
                 ),
@@ -32,7 +29,6 @@ class _SalaryPageState extends State<SalaryPage> {
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: "Commisions",
-                    hintText: "5,000 EGP",
                     enabled: false
                   ),
                   enabled: false,
@@ -42,7 +38,6 @@ class _SalaryPageState extends State<SalaryPage> {
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: "Over Time",
-                    hintText: "5,000 EGP",
                     enabled: false
                   ),
                   enabled: false,
@@ -52,14 +47,12 @@ class _SalaryPageState extends State<SalaryPage> {
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: "Total",
-                    hintText: "5,000 EGP",
                     enabled: false
                   ),
                   enabled: false,
                 ),
               ],
             ),
-          ),
         ),
       ),
     );

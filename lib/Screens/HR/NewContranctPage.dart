@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:country_code_picker/country_code_picker.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hr/Component/Citys.dart';
 import 'package:hr/Component/CustomImagePicker.dart';
@@ -97,7 +98,7 @@ class _NewContranctPageState extends State<NewContranctPage> {
               child: ListView(
                 children: <Widget>[
                   buildTextFormField("Company Name in English",20,TextInputType.text,companyNameEController),
-                  buildTextFormField("Company Name in Arabic",20,TextInputType.text,companyNameAController),
+                  buildTextFormField("Company Name in Arabic",20,TextInputType.text,companyNameAController,null,null,null,TextDirection.rtl),
                   buildDropdownButton(city, (String newValue) {
                     setState(() {
                       dropdownValue = newValue;
@@ -112,13 +113,13 @@ class _NewContranctPageState extends State<NewContranctPage> {
                   Row(children: <Widget>[
                       Expanded( flex: 1, child: InkWell(child:CountryCodePicker(initialSelection: 'EG', favorite: ['+2','EG','+966','SAR'],
                       ),),),
-                      Expanded(flex: 4, child: buildTextFormField(" Mobile Number",30,TextInputType.number,mobileController)),
+                      Expanded(flex: 4, child: buildTextFormField(" Mobile Number",20,TextInputType.number,mobileController)),
                     ],
                   ),
                   Row(children: <Widget>[
                       Expanded( flex: 1, child: InkWell(child:CountryCodePicker(initialSelection: 'EG', favorite: ['+2','EG','+966','SAR'],
                       ),),),
-                      Expanded(flex: 4, child: buildTextFormField(" Phone Number",30,TextInputType.number,phoneController)),
+                      Expanded(flex: 4, child: buildTextFormField(" Phone Number",20,TextInputType.number,phoneController)),
                     ],
                   ),
                   buildTextFormField("Web Site",20,TextInputType.text,webSiteController),

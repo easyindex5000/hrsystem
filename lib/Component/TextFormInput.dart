@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:hr/Provider/Colors.dart';
 TextFormField buildTextFormField(String labelText,int inputLength,TextInputType type,
-    TextEditingController customController,[bool enabled,IconData customIcon,FormFieldValidator validatation]) {
+    TextEditingController customController,[bool enabled,IconData customIcon,String hintText,TextDirection textDir,FormFieldValidator validatation]) {
   return TextFormField(
     decoration: InputDecoration(
         labelText: labelText,
          counterText: "",
-      suffixIcon: Icon(customIcon)
+      hintText: hintText,
+      suffixIcon: Icon(customIcon),
     ),
     maxLength: inputLength,
     keyboardType: type,
     controller: customController,
     enabled: enabled,
+    textDirection:textDir ,
     validator: validatation,
   );
 }

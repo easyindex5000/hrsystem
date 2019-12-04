@@ -9,7 +9,7 @@ Future<File> getImageFromCamera() async {
 Future<File> getImageFromGallery() async {
   return  await ImagePicker.pickImage(source: ImageSource.gallery);
 }
-
+// show Alert with Image Picker 
 Future<File> showAlert(BuildContext context) async {
   return await showModalBottomSheet<File>(
     context: context,
