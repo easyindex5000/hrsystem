@@ -18,9 +18,9 @@ class _ProfilePageState extends State<ProfilePage> {
   TextEditingController
   fNameController,lNameController,mNameController,iDNumberController,
   phoneNumberController,emailController,idNumberController,passportNumberController,
-  phoneController,dateController,passwordController,collageMajorController,
+  phoneController,dateController,collageMajorController,
   gpaController,jobTitleController,companyNameController,bankController,
-  accountNumberController,ibaNNumberController = new TextEditingController();
+  accountNumberController,ibaNNumberController,startDateController,endDateController = new TextEditingController();
   String dropdownValue=City.cities[0].keys.elementAt(0);
   String dropdownValue2;
   final _formKey = GlobalKey<FormState>();
@@ -73,9 +73,9 @@ class _ProfilePageState extends State<ProfilePage> {
                       },
                     ),
                     buildTextFormField("First Name",20,TextInputType.text,fNameController,true,null,null,null,customValidation),
-                    buildTextFormField("Middle Name",20,TextInputType.text,mNameController),
-                    buildTextFormField("family Name",20,TextInputType.text,lNameController),
-                    buildTextFormField("E-Mail",20,TextInputType.emailAddress,emailController),
+                    buildTextFormField("Middle Name",20,TextInputType.text,mNameController,true,null,null,null,customValidation),
+                    buildTextFormField("family Name",20,TextInputType.text,lNameController,true,null,null,null,customValidation),
+                    buildTextFormField("E-Mail",20,TextInputType.emailAddress,emailController,true,null,null,null,customValidation),
                     buildDropdownButton(city, (String newValue) {
                       setState(() {
                         dropdownValue = newValue;
@@ -87,9 +87,9 @@ class _ProfilePageState extends State<ProfilePage> {
                         dropdownValue2 = newValue;
                       },);
                     },dropdownValue2),
-                    buildTextFormField("ID Number",20,TextInputType.number,idNumberController),
-                    buildTextFormField("Passport Number",20,TextInputType.number,passportNumberController),
-                    InkWell(child: buildTextFormField("$date",20,TextInputType.text,passwordController,false,Icons.today),
+                    buildTextFormField("ID Number",20,TextInputType.number,idNumberController,true,null,null,null,customValidation),
+                    buildTextFormField("Passport Number",20,TextInputType.number,passportNumberController,true,null,null,null,customValidation),
+                    InkWell(child: buildTextFormField("$date",20,TextInputType.text,dateController,false,Icons.today),
                     onTap: (){
                       DatePicker.showDatePicker(context,
                         showTitleActions: true,
@@ -119,7 +119,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                         ),
                         ),
-                        Expanded(flex: 4, child: buildTextFormField(" Phone Number",20,TextInputType.number,phoneController)),
+                        Expanded(flex: 4, child: buildTextFormField(" Phone Number",20,TextInputType.number,phoneController,true,null,null,null,customValidation)),
                       ],
                     ),
                     SizedBox(height: 10,),
@@ -171,25 +171,24 @@ class _ProfilePageState extends State<ProfilePage> {
                         Text("Married"),
                       ],
                     ),
-                    buildTextFormField("Collage Major",20,TextInputType.text,collageMajorController),
-                    buildTextFormField("GPA",20,TextInputType.text,gpaController),
-                    buildTextFormField("Last Job Title",20,TextInputType.text,jobTitleController),
-                    buildTextFormField("Company Name",20,TextInputType.text,companyNameController),
+                    buildTextFormField("Collage Major",20,TextInputType.text,collageMajorController,true,null,null,null,customValidation),
+                    buildTextFormField("GPA",20,TextInputType.text,gpaController,true,null,null,null,customValidation),
+                    buildTextFormField("Last Job Title",20,TextInputType.text,jobTitleController,true,null,null,null,customValidation),
+                    buildTextFormField("Company Name",20,TextInputType.text,companyNameController,true,null,null,null,customValidation),
                  Row(
                    children: <Widget>[
                      Expanded(flex: 4,
-                       child:buildTextFormField("Start Date",4,TextInputType.number,passwordController,null,null,"10/2019"),
+                       child:buildTextFormField("Start Date",4,TextInputType.number,startDateController,true,null,"10/2019",null,customValidation),
                      ),
                      Spacer(flex: 1,),
                      Expanded(flex: 4,
-                       child:buildTextFormField("End Date",4,TextInputType.number,passwordController,null,null,"10/2020"),
+                       child:buildTextFormField("End Date",4,TextInputType.number,endDateController,null,null,"10/2020",null,customValidation),
                      )
                    ],
                  ),
-                    buildTextFormField("Bank Name",20,TextInputType.text,bankController),
-                    buildTextFormField("Account Number",20,TextInputType.number,accountNumberController),
-                    buildTextFormField("iban Number",20,TextInputType.number,ibaNNumberController),
-
+                    buildTextFormField("Bank Name",20,TextInputType.text,bankController,true,null,null,null,customValidation),
+                    buildTextFormField("Account Number",20,TextInputType.number,accountNumberController,true,null,null,null,customValidation),
+                    buildTextFormField("iban Number",20,TextInputType.number,ibaNNumberController,true,null,null,null,customValidation),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
@@ -274,8 +273,9 @@ class _ProfilePageState extends State<ProfilePage> {
                           height: 45,
                           child: RaisedButton(
                             onPressed: (){
-                              Navigator.push(context,MaterialPageRoute(builder: (context) => HomeScreen()));
-                              //if (_formKey.currentState.validate()){}
+                              if (_formKey.currentState.validate()){
+                                 Navigator.push(context,MaterialPageRoute(builder: (context) => HomeScreen()));
+                              }
                             },
                             color: ColorsProvider().primary,
                             child: Text("Save",style: TextStyle(color: Colors.white),),
@@ -293,10 +293,11 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
   String customValidation(dynamic value) {
-    if (value.isEmpty ||
-        !RegExp("^[0-9]{3}").hasMatch(value)) {
-      return null;
+    if (value.isEmpty
+     //   || !RegExp("^[0-9]{3}").hasMatch(value)
+    ) {
+      return 'this filed is required';
     }
-    return 'Email is not valid';
+    return null;
   }
 }
