@@ -23,7 +23,8 @@ class _ContractHistoryState extends State<ContractHistory> {
                 child: ListView.builder(
                   itemCount: 5,
                     itemBuilder: (BuildContext ctxt, int index){
-                      return Container(child: Card(
+                      return Container(
+                        child: Card(
                         elevation: 3,
                         child: Column(
                           children: <Widget>[
@@ -46,7 +47,7 @@ class _ContractHistoryState extends State<ContractHistory> {
                             Container(
                               height: 60,
                               child: Padding(
-                                padding: const EdgeInsets.only(left:16.0,right: 16.0),
+                                padding: const EdgeInsets.only(left:16.0,right: 16.0,top: 0),
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: <Widget>[

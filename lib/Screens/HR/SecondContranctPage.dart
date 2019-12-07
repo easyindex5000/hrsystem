@@ -12,6 +12,7 @@ class SecondContranctPage extends StatefulWidget {
 class _SecondContranctPageState extends State<SecondContranctPage> {
   TextEditingController descriptionEController,
       descriptionAController,keyWordsController,jobsController = new TextEditingController();
+  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,20 +20,23 @@ class _SecondContranctPageState extends State<SecondContranctPage> {
       appBar: buildAppBar("New Contract"),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: <Widget>[
-            CustomProgressBar(2,2),
-            Expanded(
-              child: ListView(
-                children: <Widget>[
-                  buildTextFormField("AD Description in English",30,TextInputType.text,descriptionEController),
-                  buildTextFormField("AD Description in Arabic",30,TextInputType.text,descriptionAController),
-                  buildTextFormField("Key Words",30,TextInputType.text,keyWordsController),
-                  buildTextFormField("Available Jobs",30,TextInputType.text,jobsController),
-                ],
+        child: Form(
+          key: _formKey,
+          child: Column(
+            children: <Widget>[
+              CustomProgressBar(2,2),
+              Expanded(
+                child: ListView(
+                  children: <Widget>[
+                    buildTextFormField("AD Description in English",30,TextInputType.text,descriptionEController,true,null,null,null,customValidation),
+                    buildTextFormField("AD Description in Arabic",30,TextInputType.text,descriptionAController,true,null,null,TextDirection.rtl,customValidation),
+                    buildTextFormField("Key Words",30,TextInputType.text,keyWordsController,true,null,null,null,customValidation),
+                    buildTextFormField("Available Jobs",30,TextInputType.text,jobsController,true,null,null,null,customValidation),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
       bottomNavigationBar:Padding(
@@ -53,7 +57,10 @@ class _SecondContranctPageState extends State<SecondContranctPage> {
               child: RaisedButton(
                 child: Text("Sumbit",style: TextStyle(color: Colors.white),),
                 onPressed: (){
-                  showAlertDialog();
+                  if(_formKey.currentState.validate()){
+                    showAlertDialog();
+                  }
+
                 },
                 color: ColorsProvider().primary,
               ),
@@ -78,4 +85,5 @@ class _SecondContranctPageState extends State<SecondContranctPage> {
       },
     );
   }
+  String customValidation(dynamic value) {if (value.isEmpty) {return 'this filed is required';}return null;}
 }

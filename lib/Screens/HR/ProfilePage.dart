@@ -15,19 +15,33 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  TextEditingController
-  fNameController,lNameController,mNameController,iDNumberController,
-  phoneNumberController,emailController,idNumberController,passportNumberController,
-  phoneController,dateController,collageMajorController,
-  gpaController,jobTitleController,companyNameController,bankController,
-  accountNumberController,ibaNNumberController,startDateController,endDateController = new TextEditingController();
+  TextEditingController  fNameController= new TextEditingController();
+  TextEditingController  lNameController= new TextEditingController();
+  TextEditingController  mNameController= new TextEditingController();
+  TextEditingController  iDNumberController= new TextEditingController();
+  TextEditingController  phoneNumberController= new TextEditingController();
+  TextEditingController  emailController= new TextEditingController();
+  TextEditingController idNumberController = new TextEditingController();
+  TextEditingController  passportNumberController= new TextEditingController();
+  TextEditingController  phoneController= new TextEditingController();
+  TextEditingController  dateController= new TextEditingController();
+  TextEditingController collageMajorController = new TextEditingController();
+  TextEditingController  gpaController= new TextEditingController();
+  TextEditingController jobTitleController = new TextEditingController();
+  TextEditingController  companyNameController= new TextEditingController();
+  TextEditingController  bankController= new TextEditingController();
+  TextEditingController  accountNumberController= new TextEditingController();
+  TextEditingController ibaNNumberController = new TextEditingController();
+  TextEditingController  startDateController= new TextEditingController();
+  TextEditingController endDateController = new TextEditingController();
   String dropdownValue=City.cities[0].keys.elementAt(0);
   String dropdownValue2;
   final _formKey = GlobalKey<FormState>();
   var date="1980-1-1";
   File _image,userId,cv,certification;
   String userIdString="ID.Jpg",cvString="Ahmed.pdf",certificationString="Certification";
-  bool male=true,female=false,single=true,married=false;
+  int selectedRadio=0;
+  int selectedRadio2=0;
   List<String>city=[];
   @override
   void initState() {
@@ -36,6 +50,8 @@ class _ProfilePageState extends State<ProfilePage> {
     for(int i=0;i<City.cities.length;i++){city.addAll(City.cities[0].keys);}
     super.initState();
   }
+  setSelectedRadio(int val){setState(() {selectedRadio=val;});}
+  setSelectedRadio2(int val){setState(() {selectedRadio2=val;});}
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,12 +73,15 @@ class _ProfilePageState extends State<ProfilePage> {
                           _image == null?
                           CircleAvatar(
                             radius: 70,
-                            backgroundColor: Colors.blue,
-                            backgroundImage: NetworkImage("https://cdn0.iconfinder.com/data/icons/avatars-6/500/Avatar_boy_man_people_account_client_male_person_user_work_sport_beard_team_glasses-512.png"),
+                            backgroundColor: Colors.transparent,
+                            child: FadeInImage.assetNetwork(
+                              image: "https://cdn0.iconfinder.com/data/icons/avatars-6/500/Avatar_boy_man_people_account_client_male_person_user_work_sport_beard_team_glasses-512.png",
+                              placeholder: "lib/assets/images/user.png",
+                            ),
                           ):
                           CircleAvatar(
                             radius: 70,
-                            backgroundColor: Colors.blue,
+                            backgroundColor: Colors.transparent,
                             backgroundImage: FileImage(_image),
                           ),
                         ],
@@ -126,22 +145,22 @@ class _ProfilePageState extends State<ProfilePage> {
                     Text("Gender",style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),),
                     Row(
                       children: <Widget>[
-                        Checkbox(
-                          value: male,
-                          onChanged: (bool value){
-                            setState(() {
-                              female=false;male=true;
-                            });
+                        Radio(
+                          value: 0,
+                          groupValue: selectedRadio,
+                          activeColor: ColorsProvider().primary,
+                          onChanged: (value){
+                            setSelectedRadio(value);
                           },
                         ),
                         Text("Male"),
                         SizedBox(width: 20,),
-                        Checkbox(
-                          value: female,
-                          onChanged: (bool value){
-                            setState(() {
-                                male=false;female=true;
-                            });
+                        Radio(
+                          value: 1,
+                          groupValue: selectedRadio,
+                          activeColor: ColorsProvider().primary,
+                          onChanged: (value){
+                            setSelectedRadio(value);
                           },
                         ),
                         Text("Famle"),
@@ -150,24 +169,24 @@ class _ProfilePageState extends State<ProfilePage> {
                     Text("Marital Status:",style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),),
                     Row(
                       children: <Widget>[
-                        Checkbox(
-                          value: single,
-                          onChanged: (bool value){
-                            setState(() {
-                              married=false;single=true;
-                            });
+                        Radio(
+                          value: 0,
+                          groupValue: selectedRadio2,
+                          activeColor: ColorsProvider().primary,
+                          onChanged: (value){
+                            setSelectedRadio2(value);
                           },
                         ),
                         Text("Single"),
                         SizedBox(width: 12,),
-                        Checkbox(
-                          value: married,
-                          onChanged: (bool value){
-                            setState(() {
-                              single=false;married=true;
-                            });
-                          },
-                        ),
+                          Radio(
+                            value: 1,
+                            groupValue: selectedRadio2,
+                            activeColor: ColorsProvider().primary,
+                            onChanged: (value){
+                              setSelectedRadio2(value);
+                            },
+                          ),
                         Text("Married"),
                       ],
                     ),

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:hr/Screens/HR/ContractHistory.dart';
-import 'package:hr/Screens/HR/LoginPage.dart';
 import 'package:hr/Screens/HR/NewContranctPage.dart';
 import 'package:hr/Screens/HR/ProfilePage.dart';
 import 'package:hr/Screens/HR/Salary.dart';
-
+import 'TextFormInput.dart';
 import 'customIcons.dart';
+double spaces=5.0;
 Widget mainDrawer(BuildContext context, String title){
   return Container(
     width: MediaQuery.of(context).size.width *0.60,
@@ -18,9 +18,12 @@ Widget mainDrawer(BuildContext context, String title){
               children: <Widget>[
                 CircleAvatar(
                   radius: 70,
-                    backgroundColor: Colors.white,
-                    backgroundImage: NetworkImage("https://cdn0.iconfinder.com/data/icons/avatars-6/500/Avatar_boy_man_people_account_client_male_person_user_work_sport_beard_team_glasses-512.png"),
-                   ),
+                  backgroundColor: Colors.transparent,
+                  child: FadeInImage.assetNetwork(
+                    image: "https://cdn0.iconfinder.com/data/icons/avatars-6/500/Avatar_boy_man_people_account_client_male_person_user_work_sport_beard_team_glasses-512.png",
+                    placeholder: "lib/assets/images/user.png",
+                  ),
+                ),
                 SizedBox(height: 10,),
                 Text("Ahmed Mahmoud",style: TextStyle(color: Colors.black),),
               ],
@@ -36,9 +39,9 @@ Widget mainDrawer(BuildContext context, String title){
               ),
               onTap: (){
                 Navigator.push(context,MaterialPageRoute(builder: (context) =>ProfilePage()));
-
               },
             ),
+            SizedBox(height: spaces,),
             Divider(thickness: 2,color: Colors.grey,),
             InkWell(
               child: Row(
@@ -52,6 +55,7 @@ Widget mainDrawer(BuildContext context, String title){
                 Navigator.push(context,MaterialPageRoute(builder: (context) =>NewContranctPage()));
               },
             ),
+            SizedBox(height: spaces,),
             Divider(thickness: 2,color: Colors.grey,),
             InkWell(
               child: Row(
@@ -65,6 +69,7 @@ Widget mainDrawer(BuildContext context, String title){
                Navigator.push(context,MaterialPageRoute(builder: (context) =>ContractHistory()));
               },
             ),
+            SizedBox(height: spaces,),
             Divider(thickness: 2,color: Colors.grey,),
             InkWell(
               child: Row(
@@ -78,6 +83,7 @@ Widget mainDrawer(BuildContext context, String title){
                 Navigator.push(context,MaterialPageRoute(builder: (context) =>SalaryPage()));
               },
             ),
+            SizedBox(height: spaces,),
             Divider(thickness: 2,color: Colors.grey,),
             InkWell(
               child: Row(
@@ -88,7 +94,7 @@ Widget mainDrawer(BuildContext context, String title){
                 ],
               ),
               onTap: (){
-                Navigator.push(context,MaterialPageRoute(builder: (context) =>LoginPage()));
+                alertLogOut(context);
               },
             ),
           ],

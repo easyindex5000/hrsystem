@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hr/Component/mainDrawer.dart';
 import 'package:hr/Provider/Colors.dart';
@@ -22,6 +23,16 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       key: _scaffoldKey,
       drawer: mainDrawer(context,"home"),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Center(child: ClipRect(child: Image.asset("lib/assets/images/404.png",width: 200,height: 200,)))
+          ],
+        ),
+      ),
     );
   }
 }

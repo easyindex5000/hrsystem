@@ -16,9 +16,15 @@ class NewContranctPage extends StatefulWidget {
 }
 
 class _NewContranctPageState extends State<NewContranctPage> {
-  TextEditingController companyNameAController,companyNameEController,mobileController,
-  phoneController,webSiteController,companyAddressController,employeeNumberController,
-  employeeNameController, emailController = new TextEditingController();
+TextEditingController companyNameAController= new TextEditingController();
+TextEditingController companyNameEController= new TextEditingController();
+TextEditingController mobileController= new TextEditingController();
+TextEditingController phoneController= new TextEditingController();
+TextEditingController webSiteController= new TextEditingController();
+TextEditingController companyAddressController= new TextEditingController();
+TextEditingController employeeNumberController= new TextEditingController();
+TextEditingController employeeNameController= new TextEditingController();
+TextEditingController emailController= new TextEditingController();
   String company="companyLogo",tax="Tax ID",commercial="Commercial Number";
   File companyLogo,taxId,commercialNumber;
   int imageCounter=0;
@@ -91,168 +97,174 @@ class _NewContranctPageState extends State<NewContranctPage> {
       appBar:buildAppBar("New Contract") ,
       body:Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: <Widget>[
-            CustomProgressBar(1,2),
-            Expanded(
-              child: ListView(
-                children: <Widget>[
-                  buildTextFormField("Company Name in English",20,TextInputType.text,companyNameEController),
-                  buildTextFormField("Company Name in Arabic",20,TextInputType.text,companyNameAController,null,null,null,TextDirection.rtl),
-                  buildDropdownButton(city, (String newValue) {
-                    setState(() {
-                      dropdownValue = newValue;
-                      dropdownValue2=null;
-                    });
-                  },dropdownValue),
-                  buildDropdownButton(City.cities[0][dropdownValue], (String newValue) {
-                    setState(() {
-                      dropdownValue2 = newValue;
-                    },);
-                  },dropdownValue2),
-                  Row(children: <Widget>[
-                      Expanded( flex: 1, child: InkWell(child:CountryCodePicker(initialSelection: 'EG', favorite: ['+2','EG','+966','SAR'],
-                      ),),),
-                      Expanded(flex: 4, child: buildTextFormField(" Mobile Number",20,TextInputType.number,mobileController)),
-                    ],
-                  ),
-                  Row(children: <Widget>[
-                      Expanded( flex: 1, child: InkWell(child:CountryCodePicker(initialSelection: 'EG', favorite: ['+2','EG','+966','SAR'],
-                      ),),),
-                      Expanded(flex: 4, child: buildTextFormField(" Phone Number",20,TextInputType.number,phoneController)),
-                    ],
-                  ),
-                  buildTextFormField("Web Site",20,TextInputType.text,webSiteController),
-                  buildTextFormField("Company Address",20,TextInputType.text,companyAddressController),
-                  buildTextFormField("Employee Number",20,TextInputType.number,employeeNumberController),
-                  buildTextFormField("Employee Name",20,TextInputType.text,employeeNameController),
-                  Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Text("$company"),
-                      ButtonTheme(
-                        minWidth: 20,
-                        height: 20,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: new BorderRadius.circular(18.0),
-                            side: BorderSide(color: ColorsProvider().grayColor)
-                        ),
-                        child: RaisedButton(
-                          onPressed: ()async{
-                            // ignore: missing_return
-                            companyLogo=await showAlert(context).then((res){
-                              company=res.path.substring(res.path.lastIndexOf("/")+1);
-                            });
-                            setState(() {});
-                          },
-                          color: ColorsProvider().grayColor,
-                          child: Text("UPLOAD",style: TextStyle(color: Colors.white),),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Text("Design File ($imageCounter/4)"),
-                      ButtonTheme(
-                        minWidth: 20,
-                        height: 20,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: new BorderRadius.circular(18.0),
-                            side: BorderSide(color: ColorsProvider().grayColor)
-                        ),
-                        child: RaisedButton(
-                          onPressed: (){
-                            loadAssets().then((res){
-                              imageCounter=images.length;
-                            });
-                          },
-                          color: ColorsProvider().grayColor,
-                          child: Text("UPLOAD",style: TextStyle(color: Colors.white),),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Text("$tax"),
-                      ButtonTheme(
-                        minWidth: 20,
-                        height: 20,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: new BorderRadius.circular(18.0),
-                            side: BorderSide(color: ColorsProvider().grayColor)
-                        ),
-                        child: RaisedButton(
-                          onPressed: ()async{
-                            // ignore: missing_return
-                            taxId=await showAlert(context).then((res){
-                              tax=res.path.substring(res.path.lastIndexOf("/")+1);
-                            });setState(() {});
-                          },
-                          color: ColorsProvider().grayColor,
-                          child: Text("UPLOAD",style: TextStyle(color: Colors.white),),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Text("$commercial"),
-                      ButtonTheme(
-                        minWidth: 20,
-                        height: 20,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: new BorderRadius.circular(18.0),
-                            side: BorderSide(color: ColorsProvider().grayColor)
-                        ),
-                        child: RaisedButton(
-                          onPressed: ()async{
-                            // ignore: missing_return
-                            commercialNumber=await showAlert(context).then((res){
-                              commercial=res.path.substring(res.path.lastIndexOf("/")+1);
-                            });
-                            setState(() {});
-                          },
-                          color: ColorsProvider().grayColor,
-                          child: Text("UPLOAD",style: TextStyle(color: Colors.white),),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      ButtonTheme(
-                        child:  OutlineButton(
-                      onPressed: (){
-
-                      },
-                           child: Text("Save For Later",style: TextStyle(color: ColorsProvider().primary),),
-                           color: ColorsProvider().primary,
+        child: Form(
+          key: _formKey,
+          child: Column(
+            children: <Widget>[
+              CustomProgressBar(1,2),
+              Expanded(
+                child: ListView(
+                  children: <Widget>[
+                    buildTextFormField("Company Name in English",20,TextInputType.text,companyNameEController,true,null,null,null,customValidation),
+                    buildTextFormField("Company Name in Arabic",20,TextInputType.text,companyNameAController,true,null,null,TextDirection.rtl,customValidation),
+                    buildDropdownButton(city, (String newValue) {
+                      setState(() {
+                        dropdownValue = newValue;
+                        dropdownValue2=null;
+                      });
+                    },dropdownValue),
+                    buildDropdownButton(City.cities[0][dropdownValue], (String newValue) {
+                      setState(() {
+                        dropdownValue2 = newValue;
+                      },);
+                    },dropdownValue2),
+                    Row(children: <Widget>[
+                        Expanded( flex: 1, child: InkWell(child:CountryCodePicker(initialSelection: 'EG', favorite: ['+2','EG','+966','SAR'],
+                        ),),),
+                        Expanded(flex: 4, child: buildTextFormField(" Mobile Number",20,TextInputType.number,mobileController,true,null,null,null,customValidation)),
+                      ],
+                    ),
+                    Row(children: <Widget>[
+                        Expanded( flex: 1, child: InkWell(child:CountryCodePicker(initialSelection: 'EG', favorite: ['+2','EG','+966','SAR'],
+                        ),),),
+                        Expanded(flex: 4, child: buildTextFormField(" Phone Number",20,TextInputType.number,phoneController,true,null,null,null,customValidation)),
+                      ],
+                    ),
+                    buildTextFormField("Web Site",20,TextInputType.text,webSiteController,true,null,null,null,customValidation),
+                    buildTextFormField("Company Address",20,TextInputType.text,companyAddressController,true,null,null,null,customValidation),
+                    buildTextFormField("Employee Number",20,TextInputType.number,employeeNumberController,true,null,null,null,customValidation),
+                    buildTextFormField("Employee Name",20,TextInputType.text,employeeNameController,true,null,null,null,customValidation),
+                    Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Text("$company"),
+                        ButtonTheme(
+                          minWidth: 20,
+                          height: 20,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: new BorderRadius.circular(18.0),
+                              side: BorderSide(color: ColorsProvider().grayColor)
                           ),
-                      ),
-                      SizedBox(width: 30,),
-                      ButtonTheme(
-                        child: RaisedButton(
-                          onPressed: (){
-                            Navigator.push(context,MaterialPageRoute(builder: (context) => SecondContranctPage()));
-
-                          },
-                          child: Text("Next",style: TextStyle(color: Colors.white),),
-                          color: ColorsProvider().primary,
+                          child: RaisedButton(
+                            onPressed: ()async{
+                              // ignore: missing_return
+                              companyLogo=await showAlert(context).then((res){
+                                company=res.path.substring(res.path.lastIndexOf("/")+1);
+                              });
+                              setState(() {});
+                            },
+                            color: ColorsProvider().grayColor,
+                            child: Text("UPLOAD",style: TextStyle(color: Colors.white),),
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                ],
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Text("Design File ($imageCounter/4)"),
+                        ButtonTheme(
+                          minWidth: 20,
+                          height: 20,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: new BorderRadius.circular(18.0),
+                              side: BorderSide(color: ColorsProvider().grayColor)
+                          ),
+                          child: RaisedButton(
+                            onPressed: (){
+                              loadAssets().then((res){
+                                imageCounter=images.length;
+                              });
+                            },
+                            color: ColorsProvider().grayColor,
+                            child: Text("UPLOAD",style: TextStyle(color: Colors.white),),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Text("$tax"),
+                        ButtonTheme(
+                          minWidth: 20,
+                          height: 20,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: new BorderRadius.circular(18.0),
+                              side: BorderSide(color: ColorsProvider().grayColor)
+                          ),
+                          child: RaisedButton(
+                            onPressed: ()async{
+                              // ignore: missing_return
+                              taxId=await showAlert(context).then((res){
+                                tax=res.path.substring(res.path.lastIndexOf("/")+1);
+                              });setState(() {});
+                            },
+                            color: ColorsProvider().grayColor,
+                            child: Text("UPLOAD",style: TextStyle(color: Colors.white),),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Text("$commercial"),
+                        ButtonTheme(
+                          minWidth: 20,
+                          height: 20,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: new BorderRadius.circular(18.0),
+                              side: BorderSide(color: ColorsProvider().grayColor)
+                          ),
+                          child: RaisedButton(
+                            onPressed: ()async{
+                              // ignore: missing_return
+                              commercialNumber=await showAlert(context).then((res){
+                                commercial=res.path.substring(res.path.lastIndexOf("/")+1);
+                              });
+                              setState(() {});
+                            },
+                            color: ColorsProvider().grayColor,
+                            child: Text("UPLOAD",style: TextStyle(color: Colors.white),),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        ButtonTheme(
+                          child:  OutlineButton(
+                        onPressed: (){
+
+                        },
+                             child: Text("Save For Later",style: TextStyle(color: ColorsProvider().primary),),
+                             color: ColorsProvider().primary,
+                            ),
+                        ),
+                        SizedBox(width: 30,),
+                        ButtonTheme(
+                          child: RaisedButton(
+                            onPressed: (){
+                              Navigator.push(context,MaterialPageRoute(builder: (context) => SecondContranctPage()));
+
+                              if (_formKey.currentState.validate()){
+                             }
+                            },
+                            child: Text("Next",style: TextStyle(color: Colors.white),),
+                            color: ColorsProvider().primary,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
   }
+  String customValidation(dynamic value) {if (value.isEmpty) {return 'this filed is required';}return null;}
 }

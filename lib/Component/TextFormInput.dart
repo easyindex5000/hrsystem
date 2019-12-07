@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hr/Provider/Colors.dart';
+import 'package:hr/Screens/HR/LoginPage.dart';
 TextFormField buildTextFormField(String labelText,int inputLength,TextInputType type,
     TextEditingController customController,[bool enabled,IconData customIcon,String hintText,TextDirection textDir,FormFieldValidator validatation]) {
   return TextFormField(
@@ -46,4 +47,38 @@ DropdownButton<String> buildDropdownButton(List<String> myList,Function onChange
         child: Text(value),
       );
     }).toList(),);
+}
+Future<void> alertLogOut(context) async {
+  return showDialog<void>(
+    context: context,
+    barrierDismissible: true, // user must tap button!
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text('Are you want to logout',textAlign: TextAlign.center,style: TextStyle(color: ColorsProvider().primary),),
+        actions: <Widget>[
+          ButtonTheme(
+            minWidth: MediaQuery.of(context).size.width /3,
+            child: RaisedButton(
+              color: Colors.red,
+              child: Text("Logout",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
+              onPressed: (){
+                Navigator.of(context).pop();
+                Navigator.of(context).pushReplacement(new MaterialPageRoute(builder: (context) => new LoginPage()));
+              },
+            ),
+          ),
+          ButtonTheme(
+            minWidth: MediaQuery.of(context).size.width /3,
+            child: OutlineButton(
+              child: Text("Cancel",style: TextStyle(color: Colors.grey),),
+              onPressed: (){
+                Navigator.of(context).pop();
+              },
+            ),
+          ),
+
+        ],
+      );
+    },
+  );
 }
