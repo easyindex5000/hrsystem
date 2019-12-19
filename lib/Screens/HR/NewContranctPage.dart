@@ -10,6 +10,8 @@ import 'package:hr/Provider/Colors.dart';
 import 'package:hr/Screens/HR/SecondContranctPage.dart';
 import 'package:multi_image_picker/multi_image_picker.dart';
 import 'dart:async';
+
+import 'package:path_provider/path_provider.dart';
 class NewContranctPage extends StatefulWidget {
   @override
   _NewContranctPageState createState() => _NewContranctPageState();
@@ -74,8 +76,12 @@ TextEditingController emailController= new TextEditingController();
         ),
       );
       for (var r in resultList) {
-        var t = await r.filePath;
-        print(t);
+        String dir = (await getApplicationDocumentsDirectory()).path;
+      final buffer = (await r.getByteData()).buffer;
+   File t=   (await File(dir + "/" + r.name).writeAsBytes(buffer.asUint8List(
+          (await r.getByteData()).offsetInBytes,
+          (await r.getByteData()).lengthInBytes)));
+        print(t.path);
       }
     } on Exception catch (e) {
       error = e.toString();
