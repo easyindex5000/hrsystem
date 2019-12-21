@@ -31,7 +31,7 @@ dependencies:
   country_code_picker: ^1.1.7
   toast: ^0.1.5
   image_picker: ^0.6.1+10
-  multi_image_picker: ^5.6.0
+  multi_image_picker: ^4.6.0
   file_picker: ^1.4.3+1
   shared_preferences: ^0.5.4+8
 
