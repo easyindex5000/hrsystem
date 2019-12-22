@@ -1,31 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'dart:core';
-class User with ChangeNotifier{
-  int status;
-  bool success;
-  Data data;
 
-  User({this.status, this.success, this.data});
-
-  User.fromJson(Map<String, dynamic> json) {
-    status = json['status'];
-    success = json['success'];
-    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['status'] = this.status;
-    data['success'] = this.success;
-    if (this.data != null) {
-      data['data'] = this.data.toJson();
-    }
-    return data;
-  }
-}
-
-class Data with ChangeNotifier{
+class UserData with ChangeNotifier{
   int id;
   String email;
   String emailVerifiedAt;
@@ -63,7 +40,7 @@ class Data with ChangeNotifier{
   String createdAt;
   String updatedAt;
 
-  Data(
+  UserData(
       {this.id,
         this.email,
         this.emailVerifiedAt,
@@ -101,7 +78,7 @@ class Data with ChangeNotifier{
         this.createdAt,
         this.updatedAt});
 
-  Data.fromJson(Map<String, dynamic> json) {
+  UserData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     email = json['email'];
     emailVerifiedAt = json['email_verified_at'];
