@@ -71,7 +71,7 @@ class HrProvider with ChangeNotifier {
       response = await dio.get(profileUrl,
           options: Options(
               contentType: Headers.contentEncodingHeader, headers: headers));
-      print("response ${response.data.toString()}");
+     // print("response ${response.data.toString()}");
       return response.data;
     } catch (e) {
       print(e);
