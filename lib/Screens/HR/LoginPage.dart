@@ -4,7 +4,7 @@ import 'package:hr/Provider/Colors.dart';
 import 'package:hr/Provider/HRProvider.dart';
 import 'package:hr/Screens/HR/Home%20HR.dart';
 import 'package:provider/provider.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
 import 'ForgetPassword.dart';
 class LoginPage extends StatefulWidget {
   @override
@@ -35,11 +35,12 @@ class _LoginPageState extends State<LoginPage> {
                         maxLength: 45,
                         keyboardType: TextInputType.emailAddress,
                         autovalidate: true,
-                        validator: _validateEmail,
+                  //      validator: _validateEmail,
+                        autocorrect: true,
+                        controller: emailController,
                         decoration: InputDecoration(
                           labelText: "E-Mail",
                           counterText: "",
-
                         ),
                       ),
 
@@ -81,17 +82,29 @@ class _LoginPageState extends State<LoginPage> {
                         }
                       ),
                       SizedBox(height: 20,),
-                      ButtonTheme(
-                        minWidth: MediaQuery.of(context).size.width *1.2,
-                        height: 40,
-                        child: RaisedButton(
-                          onPressed: (){
-                            Navigator.push(context,MaterialPageRoute(builder: (context) => HomeScreen()));
-
-                          },
-                          child: Text("SIGN IN",style: TextStyle(color: Colors.white,fontSize: 18),),
-                          color: ColorsProvider().primary,
-                        ),
+                      Consumer<HrProvider>(
+                        builder: (context, hrProvider,_) {
+                          return ButtonTheme(
+                            minWidth: MediaQuery.of(context).size.width *1.2,
+                            height: 40,
+                            child: RaisedButton(
+                              onPressed: ()async{
+                                SharedPreferences prefs = await SharedPreferences.getInstance();
+                           //     if (_formKey.currentState.validate()){
+                                     hrProvider.login(emailController.text, passwordController.text).then((res) async {
+                                      print("myToken ${res['access_token']}");
+                                   String userName=res["user"]["first_name"]+res["user"]["mid_name"];
+                                   await prefs.setString('userToken',res["access_token"]);
+                                   await prefs.setString('userName',userName);
+                                   Navigator.of(context).pushReplacement(new MaterialPageRoute(builder: (context) => new HomeScreen()));
+                                  });
+                              //  }
+                              },
+                              child: Text("SIGN IN",style: TextStyle(color: Colors.white,fontSize: 18),),
+                              color: ColorsProvider().primary,
+                            ),
+                          );
+                        }
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
@@ -115,8 +128,6 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
-
-
   String _validateEmail(String value) {
     if (value.isEmpty) {
       // The form is empty
