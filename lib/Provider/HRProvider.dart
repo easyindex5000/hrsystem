@@ -8,15 +8,16 @@ import 'package:multi_image_picker/multi_image_picker.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-String baseUrl = "https://hr.forallw.com/public/";
-String api = "api/v1";
-String loginUrl = baseUrl + api + "/auth/login";
-String salaryUrl = baseUrl + api + "/employee/salary";
-String profileUrl = baseUrl + api + "/employee/profile";
-final String _contractStepOneUrl = baseUrl + api + "contract/new";
-final String _contractStepTwoUrl = baseUrl + api + "contract/";
-final String _contractTypesUrl = baseUrl + api + "contract/types";
-final String _contractsHistory = baseUrl + api + "employee/contracts/history";
+final String _baseUrl = "https://hr.forallw.com/public/";
+final String _api = "api/v1";
+final String loginUrl = _baseUrl + _api + "/auth/login";
+final String salaryUrl = _baseUrl + _api + "/employee/salary";
+final String profileUrl = _baseUrl + _api + "/employee/profile";
+final String _contractStepOneUrl = _baseUrl + _api + "/contract/new";
+final String _contractStepTwoUrl = _baseUrl + _api + "/contract/";
+final String _contractTypesUrl = _baseUrl + _api + "/contract/types";
+final String _contractsHistory =
+    _baseUrl + _api + "/employee/contracts/history";
 
 class HrProvider with ChangeNotifier {
   bool securePassword = true;
@@ -30,6 +31,7 @@ class HrProvider with ChangeNotifier {
   //////////////////////////////////////////////////auth//////////////
   Future login(String email, String password) async {
     try {
+      print(loginUrl);
       response = await dio.post(
         loginUrl,
         data: {"email": email, "password": password},
@@ -83,8 +85,8 @@ class HrProvider with ChangeNotifier {
       @required File commercialNumber}) async {
     print("aaaaaaaaaaaaaaa");
     try {
-      String token =
-          "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvaHIuZm9yYWxsdy5jb21cL3B1YmxpY1wvYXBpXC92MVwvYXV0aFwvbG9naW4iLCJpYXQiOjE1NzcwMDU5NzgsImV4cCI6MTU3NzAwOTU3OCwibmJmIjoxNTc3MDA1OTc4LCJqdGkiOiJOb3FCTEJobHBaWlVIQm13Iiwic3ViIjozLCJwcnYiOiI4N2UwYWYxZWY5ZmQxNTgxMmZkZWM5NzE1M2ExNGUwYjA0NzU0NmFhIn0.5adEbkWhALFbqMU0_mVQdGBJ-HjQ0WsS4c1dBB7VEfk";
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      var token = prefs.getString('userToken');
       final headers = {
         // 'Content-Type': 'application/json',
         'Authorization': "Bearer $token"
@@ -128,8 +130,8 @@ class HrProvider with ChangeNotifier {
       @required String keyWords,
       @required String availaveJobs}) async {
     try {
-      String token =
-          "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvaHIuZm9yYWxsdy5jb21cL3B1YmxpY1wvYXBpXC92MVwvYXV0aFwvbG9naW4iLCJpYXQiOjE1NzcwMDU5NzgsImV4cCI6MTU3NzAwOTU3OCwibmJmIjoxNTc3MDA1OTc4LCJqdGkiOiJOb3FCTEJobHBaWlVIQm13Iiwic3ViIjozLCJwcnYiOiI4N2UwYWYxZWY5ZmQxNTgxMmZkZWM5NzE1M2ExNGUwYjA0NzU0NmFhIn0.5adEbkWhALFbqMU0_mVQdGBJ-HjQ0WsS4c1dBB7VEfk";
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      var token = prefs.getString('userToken');
       final headers = {
         'Authorization': "Bearer $token",
         'Content-Type': 'application/json',
@@ -152,8 +154,8 @@ class HrProvider with ChangeNotifier {
 
   Future<Map<String, dynamic>> getContractTypes() async {
     try {
-      String token =
-          "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvaHIuZm9yYWxsdy5jb21cL3B1YmxpY1wvYXBpXC92MVwvYXV0aFwvbG9naW4iLCJpYXQiOjE1NzcwMDU5NzgsImV4cCI6MTU3NzAwOTU3OCwibmJmIjoxNTc3MDA1OTc4LCJqdGkiOiJOb3FCTEJobHBaWlVIQm13Iiwic3ViIjozLCJwcnYiOiI4N2UwYWYxZWY5ZmQxNTgxMmZkZWM5NzE1M2ExNGUwYjA0NzU0NmFhIn0.5adEbkWhALFbqMU0_mVQdGBJ-HjQ0WsS4c1dBB7VEfk";
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      var token = prefs.getString('userToken');
       final headers = {
         'Content-Type': 'application/json',
         'Authorization': "Bearer $token"
@@ -169,8 +171,8 @@ class HrProvider with ChangeNotifier {
 
   Future<Map<String, dynamic>> getContractHistpry() async {
     try {
-      String token =
-          "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvaHIuZm9yYWxsdy5jb21cL3B1YmxpY1wvYXBpXC92MVwvYXV0aFwvbG9naW4iLCJpYXQiOjE1NzcwMDU5NzgsImV4cCI6MTU3NzAwOTU3OCwibmJmIjoxNTc3MDA1OTc4LCJqdGkiOiJOb3FCTEJobHBaWlVIQm13Iiwic3ViIjozLCJwcnYiOiI4N2UwYWYxZWY5ZmQxNTgxMmZkZWM5NzE1M2ExNGUwYjA0NzU0NmFhIn0.5adEbkWhALFbqMU0_mVQdGBJ-HjQ0WsS4c1dBB7VEfk";
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      var token = prefs.getString('userToken');
       final headers = {
         'Content-Type': 'application/json',
         'Authorization': "Bearer $token"

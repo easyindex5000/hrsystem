@@ -35,7 +35,7 @@ class _ContractHistoryState extends State<ContractHistory> {
               Container(
                 child: Expanded(
                   child: ListView.builder(
-                      itemCount: 5,
+                      itemCount:snapshot.data['data'].length,
                       itemBuilder: (BuildContext ctxt, int index) {
                         return Container(
                           child: Card(
@@ -49,13 +49,13 @@ class _ContractHistoryState extends State<ContractHistory> {
                                     Padding(
                                       padding: const EdgeInsets.all(8.0),
                                       child: Text(
-                                        "Ahmed Mahmoud",
+                                        snapshot.data['data'][index]["employee_name"],
                                         style: TextStyle(
                                             color: ColorsProvider().primary,
                                             fontWeight: FontWeight.bold),
                                       ),
                                     ),
-                                    IconButton(
+                                 if(snapshot.data['data'][index]['contract_status']==0)   IconButton(
                                       icon: Icon(HRIcons.edit),
                                       onPressed: () {
                                         Navigator.push(
