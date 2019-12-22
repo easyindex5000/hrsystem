@@ -6,15 +6,17 @@ import 'package:hr/Models/Contract.dart';
 import 'dart:io';
 import 'package:multi_image_picker/multi_image_picker.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-final String baseUrl = "https://hr.forallw.com/public/api/v1/";
-String loginUrl = baseUrl + "";
-final String _contractStepOneUrl = baseUrl + "contract/new";
-final String _contractStepTwoUrl = baseUrl + "contract/";
-
-final String _contractTypesUrl = baseUrl + "contract/types";
-final String _contractsHistory = baseUrl + "employee/contracts/history";
-
+String baseUrl = "https://hr.forallw.com/public/";
+String api = "api/v1";
+String loginUrl = baseUrl + api + "/auth/login";
+String salaryUrl = baseUrl + api + "/employee/salary";
+String profileUrl = baseUrl + api + "/employee/profile";
+final String _contractStepOneUrl = baseUrl + api + "contract/new";
+final String _contractStepTwoUrl = baseUrl + api + "contract/";
+final String _contractTypesUrl = baseUrl + api + "contract/types";
+final String _contractsHistory = baseUrl + api + "employee/contracts/history";
 
 class HrProvider with ChangeNotifier {
   bool securePassword = true;
@@ -25,17 +27,50 @@ class HrProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future getHttp() async {
+  //////////////////////////////////////////////////auth//////////////
+  Future login(String email, String password) async {
     try {
+      response = await dio.post(
+        loginUrl,
+        data: {"email": email, "password": password},
+      );
+      return response.data;
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future salary() async {
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      var userToken = prefs.getString('userToken');
       final headers = {
         'Content-Type': 'application/json',
-        'Authorization': "Bearer "
+        'Authorization': "Bearer $userToken"
       };
-      response = await dio.post("/test",
-          data: {"id": 12, "name": "wendu"},
+      response = await dio.get(salaryUrl,
           options: Options(
               contentType: Headers.contentEncodingHeader, headers: headers));
-      return response.data.toString();
+      print("response ${response.data.toString()}");
+      return response.data;
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future getProfile() async {
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      var userToken = prefs.getString('userToken');
+      final headers = {
+        'Content-Type': 'application/json',
+        'Authorization': "Bearer $userToken"
+      };
+      response = await dio.get(profileUrl,
+          options: Options(
+              contentType: Headers.contentEncodingHeader, headers: headers));
+      print("response ${response.data.toString()}");
+      return response.data;
     } catch (e) {
       print(e);
     }
@@ -131,7 +166,8 @@ class HrProvider with ChangeNotifier {
       print(e);
     }
   }
-    Future<Map<String, dynamic>> getContractHistpry() async {
+
+  Future<Map<String, dynamic>> getContractHistpry() async {
     try {
       String token =
           "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvaHIuZm9yYWxsdy5jb21cL3B1YmxpY1wvYXBpXC92MVwvYXV0aFwvbG9naW4iLCJpYXQiOjE1NzcwMDU5NzgsImV4cCI6MTU3NzAwOTU3OCwibmJmIjoxNTc3MDA1OTc4LCJqdGkiOiJOb3FCTEJobHBaWlVIQm13Iiwic3ViIjozLCJwcnYiOiI4N2UwYWYxZWY5ZmQxNTgxMmZkZWM5NzE1M2ExNGUwYjA0NzU0NmFhIn0.5adEbkWhALFbqMU0_mVQdGBJ-HjQ0WsS4c1dBB7VEfk";

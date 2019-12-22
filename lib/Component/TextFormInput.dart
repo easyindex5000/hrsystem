@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hr/Provider/Colors.dart';
 import 'package:hr/Screens/HR/LoginPage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 TextFormField buildTextFormField(String labelText,int inputLength,TextInputType type,
     TextEditingController customController,[bool enabled,IconData customIcon,String hintText,TextDirection textDir,FormFieldValidator validatation]) {
   return TextFormField(
@@ -61,8 +62,9 @@ Future<void> alertLogOut(context) async {
             child: RaisedButton(
               color: Colors.red,
               child: Text("Logout",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
-              onPressed: (){
-                Navigator.of(context).pop();
+              onPressed: () async {
+                SharedPreferences prefs = await SharedPreferences.getInstance();
+                Navigator.of(context).pop(prefs.clear());
                 Navigator.of(context).pushReplacement(new MaterialPageRoute(builder: (context) => new LoginPage()));
               },
             ),
