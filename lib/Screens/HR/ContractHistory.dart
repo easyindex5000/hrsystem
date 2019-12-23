@@ -114,7 +114,7 @@ class _ContractHistoryState extends State<ContractHistory> {
                                                 ),
                                               ),
                                               Text(
-                                                "NOT COMPLETE",
+                                            snapshot.data['data'][index]['contract_status']==0?   "NOT COMPLETE":"COMPLETED",
                                                 style: TextStyle(
                                                     color: Colors.black,
                                                     fontWeight:

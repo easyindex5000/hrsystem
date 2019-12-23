@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:hr/model/userModel.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
@@ -16,6 +17,7 @@ final String profileUrl = _baseUrl + _api + "/employee/profile";
 final String _contractStepOneUrl = _baseUrl + _api + "/contract/new";
 final String _contractStepTwoUrl = _baseUrl + _api + "/contract/";
 final String _contractTypesUrl = _baseUrl + _api + "/contract/types";
+final String _editProfileUrl=_baseUrl+_api+"/profile/update";
 final String _contractsHistory =
     _baseUrl + _api + "/employee/contracts/history";
 
@@ -71,7 +73,7 @@ class HrProvider with ChangeNotifier {
       response = await dio.get(profileUrl,
           options: Options(
               contentType: Headers.contentEncodingHeader, headers: headers));
-      print("response ${response.data.toString()}");
+     // print("response ${response.data.toString()}");
       return response.data;
     } catch (e) {
       print(e);
@@ -196,5 +198,20 @@ class HrProvider with ChangeNotifier {
       return _compressFile(result);
     }
     return result;
+  }
+    Future editProfile(UserData userData) async {
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      var userToken = prefs.getString('userToken');
+      final headers = {
+        'Content-Type': 'application/json',
+        'Authorization': "Bearer $userToken"
+      };
+      response = await dio.post(_editProfileUrl,data: userData.toJson(),
+          options: Options(contentType: Headers.contentEncodingHeader, headers: headers));
+      return response.data;
+    } catch (e) {
+      print(e);
+    }
   }
 }

@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'dart:core';
-
 class UserData with ChangeNotifier{
-  int id;
   String email;
-  String emailVerifiedAt;
+  String username;
   int role;
   String code;
-  String firstName;
+  Null firstName;
   String midName;
   String familyName;
-  String username;
   String nationality;
   String country;
   String idNumber;
@@ -37,13 +34,10 @@ class UserData with ChangeNotifier{
   String commission;
   int overtime;
   int isFullTime;
-  String createdAt;
-  String updatedAt;
 
   UserData(
-      {this.id,
+      {
         this.email,
-        this.emailVerifiedAt,
         this.role,
         this.code,
         this.firstName,
@@ -74,14 +68,11 @@ class UserData with ChangeNotifier{
         this.salary,
         this.commission,
         this.overtime,
-        this.isFullTime,
-        this.createdAt,
-        this.updatedAt});
+        this.isFullTime
+        });
 
   UserData.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
     email = json['email'];
-    emailVerifiedAt = json['email_verified_at'];
     role = json['role'];
     code = json['code'];
     firstName = json['first_name'];
@@ -113,15 +104,11 @@ class UserData with ChangeNotifier{
     commission = json['commission'];
     overtime = json['overtime'];
     isFullTime = json['is_full_time'];
-    createdAt = json['created_at'];
-    updatedAt = json['updated_at'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
     data['email'] = this.email;
-    data['email_verified_at'] = this.emailVerifiedAt;
     data['role'] = this.role;
     data['code'] = this.code;
     data['first_name'] = this.firstName;
@@ -153,8 +140,6 @@ class UserData with ChangeNotifier{
     data['commission'] = this.commission;
     data['overtime'] = this.overtime;
     data['is_full_time'] = this.isFullTime;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
     return data;
   }
 }

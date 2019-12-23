@@ -7,6 +7,10 @@ class SalaryPage extends StatefulWidget {
 }
 
 class _SalaryPageState extends State<SalaryPage> {
+    TextEditingController salaryController = new TextEditingController();
+    TextEditingController commissionController = new TextEditingController();
+    TextEditingController overtimeController = new TextEditingController();
+    TextEditingController totalController = new TextEditingController();
   double spaces=25;
   String salary="Basic Salary",commission="Commisions",overtime="Over Time",total="Total";
   @override
@@ -16,13 +20,13 @@ class _SalaryPageState extends State<SalaryPage> {
       appBar: buildAppBar("SALARY"),
       body: FutureBuilder(
         future:HrProvider().salary().then((res){
-          salary= res["data"]["salary"].toString();
-          commission= res["data"]["commission"];
-          overtime= res["data"]["overtime"].toString();
-          total=res["data"]["total"].toString();
+          salaryController.text= res["data"]["salary"].toString();
+          commissionController.text= res["data"]["commission"];
+          overtimeController.text= res["data"]["overtime"].toString();
+          totalController.text=res["data"]["total"].toString();
         }),
         builder: (context, snapshot) {
-          if(snapshot.connectionState==ConnectionState.done){
+          if(snapshot.connectionState==ConnectionState.done&&snapshot.data!=null){
             return Padding(
               padding: const EdgeInsets.all(16.0),
               child: Container(
@@ -34,6 +38,7 @@ class _SalaryPageState extends State<SalaryPage> {
                         labelText: "$salary",
                       ),
                       enabled: false,
+                      controller: salaryController,
                     ),
                     SizedBox(height: spaces,),
                     TextFormField(
@@ -44,6 +49,7 @@ class _SalaryPageState extends State<SalaryPage> {
                           enabled: false
                       ),
                       enabled: false,
+                      controller: commissionController,
                     ),
                     SizedBox(height: spaces,),
                     TextFormField(
@@ -53,6 +59,7 @@ class _SalaryPageState extends State<SalaryPage> {
                           enabled: false
                       ),
                       enabled: false,
+                      controller: overtimeController,
                     ),
                     SizedBox(height: spaces,),
                     TextFormField(
@@ -62,6 +69,7 @@ class _SalaryPageState extends State<SalaryPage> {
                           enabled: false
                       ),
                       enabled: false,
+                      controller: overtimeController,
                     ),
                   ],
                 ),
