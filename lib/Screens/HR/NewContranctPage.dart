@@ -32,8 +32,8 @@ class _NewContranctPageState extends State<NewContranctPage> {
   TextEditingController employeeNumberController = new TextEditingController();
   TextEditingController employeeNameController = new TextEditingController();
   TextEditingController emailController = new TextEditingController();
-  String company = "companyLogo",
-      tax = "Tax ID",
+  String company = "CompanyLogo",
+        tax = "VAT ID",
       commercial = "Commercial Number";
   File companyLogo, taxId, commercialNumber;
   int imageCounter = 0;
@@ -145,7 +145,7 @@ class _NewContranctPageState extends State<NewContranctPage> {
                     }),
                     buildTextFormField(
                         "Company Name in English",
-                        20,
+                        30,
                         TextInputType.text,
                         companyNameEController,
                         true,
@@ -155,7 +155,7 @@ class _NewContranctPageState extends State<NewContranctPage> {
                         customValidation),
                     buildTextFormField(
                         "Company Name in Arabic",
-                        20,
+                        30,
                         TextInputType.text,
                         companyNameAController,
                         true,
@@ -229,7 +229,7 @@ class _NewContranctPageState extends State<NewContranctPage> {
                     ),
                     buildTextFormField(
                         "Web Site",
-                        20,
+                        50,
                         TextInputType.text,
                         webSiteController,
                         true,
@@ -239,7 +239,7 @@ class _NewContranctPageState extends State<NewContranctPage> {
                         customValidation),
                     buildTextFormField(
                         "Company Address",
-                        20,
+                        50,
                         TextInputType.text,
                         companyAddressController,
                         true,

@@ -28,7 +28,7 @@ class _CustomProgressBarState extends State<CustomProgressBar> {
 
   final _stepProgressViewHeight = 70.0;
 
-  Color _activeColor = Color(0xff193ca1);
+  Color _activeColor = ColorsProvider().primary;
 
   Color _inactiveColor = Color(0xffe3eaff);
 

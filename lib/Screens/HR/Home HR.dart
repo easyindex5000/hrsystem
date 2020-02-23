@@ -29,7 +29,8 @@ class _HomeScreenState extends State<HomeScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            Center(child: ClipRect(child: Image.asset("lib/assets/images/404.png",width: 200,height: 200,)))
+            Center(child: ClipRect(child: Image.asset("lib/assets/images/404.png",width: 200,height: 200,),),),
+            Text("Easy Index",style: TextStyle(color: ColorsProvider().primary,fontSize: 18,fontWeight: FontWeight.bold),)
           ],
         ),
       ),

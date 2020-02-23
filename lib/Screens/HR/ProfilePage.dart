@@ -99,7 +99,7 @@ class _ProfilePageState extends State<ProfilePage> {
             nationalityController.text=res['data']['nationality'];
           }),
           builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.done) {
+            if (snapshot.data == null) {
               return Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Form(
@@ -119,7 +119,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                           backgroundColor: Colors.transparent,
                                           child: FadeInImage.assetNetwork(
                                             image:
-                                                "httpszzz@aaa.com://cdn0.iconfinder.com/data/icons/avatars-6/500/Avatar_boy_man_people_account_client_male_person_user_work_sport_beard_team_glasses-512.png",
+                                                "https://cdn0.iconfinder.com/data/icons/avatars-6/500/Avatar_boy_man_people_account_client_male_person_user_work_sport_beard_team_glasses-512.png",
                                             placeholder:
                                                 "lib/assets/images/user.png",
                                           ),

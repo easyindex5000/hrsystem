@@ -89,16 +89,17 @@ class _LoginPageState extends State<LoginPage> {
                             height: 40,
                             child: RaisedButton(
                               onPressed: ()async{
-                                SharedPreferences prefs = await SharedPreferences.getInstance();
+                     //           SharedPreferences prefs = await SharedPreferences.getInstance();
                            //     if (_formKey.currentState.validate()){
-                                     hrProvider.login(emailController.text, passwordController.text).then((res) async {
-                                      print("myToken ${res['access_token']}");
-                                   String userName=res["user"]["first_name"]+res["user"]["mid_name"];
-                                   await prefs.setString('userToken',res["access_token"]);
-                                   await prefs.setString('userName',userName);
-                                   Navigator.of(context).pushReplacement(new MaterialPageRoute(builder: (context) => new HomeScreen()));
-                                  });
-                              //  }
+//                                     hrProvider.login(emailController.text, passwordController.text).then((res) async {
+//                                      print("myToken ${res['access_token']}");
+//                                   String userName=res["user"]["first_name"]+res["user"]["mid_name"];
+//                                   await prefs.setString('userToken',res["access_token"]);
+//                                   await prefs.setString('userName',userName);
+//                                  });
+                                Navigator.of(context).pushReplacement(new MaterialPageRoute(builder: (context) => new HomeScreen()));
+
+                                //  }
                               },
                               child: Text("SIGN IN",style: TextStyle(color: Colors.white,fontSize: 18),),
                               color: ColorsProvider().primary,

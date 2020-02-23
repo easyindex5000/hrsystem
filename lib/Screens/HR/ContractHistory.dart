@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+ import 'package:flutter/material.dart';
 import 'package:hr/Component/TextFormInput.dart';
 import 'package:hr/Component/customIcons.dart';
 import 'package:hr/Provider/Colors.dart';
@@ -23,7 +23,7 @@ class _ContractHistoryState extends State<ContractHistory> {
       body: FutureBuilder<Map<String, dynamic>>(future: _memoizer.runOnce(() {
         return hrProvider.getContractHistpry();
       }), builder: (context, snapshot) {
-        if (snapshot.connectionState != ConnectionState.done) {
+        if ((snapshot.connectionState != ConnectionState.done)||(snapshot.data==null)) {
           return Center(
             child: CircularProgressIndicator(),
           );

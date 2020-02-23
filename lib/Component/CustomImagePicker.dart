@@ -16,7 +16,7 @@ Future<File> showAlert(BuildContext context) async {
 //    barrierDismissible: true, // user must tap button!
     builder: (BuildContext context) {
       return Container(
-        height: 120,
+        height: 90,
         decoration: new BoxDecoration(
             borderRadius: new BorderRadius.only(
                 topLeft: const Radius.circular(40.0),
@@ -27,19 +27,19 @@ Future<File> showAlert(BuildContext context) async {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                InkWell(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Text("Delete Photo",style: TextStyle(color: Colors.red,fontWeight: FontWeight.bold,fontSize: 15),)
-                    ],
-                  ),
-                  onTap: (){
-                    Navigator.of(context).pop();
-                  },
-                ),
-                Divider(),
+//                InkWell(
+//                  child: Row(
+//                    mainAxisAlignment: MainAxisAlignment.center,
+//                    crossAxisAlignment: CrossAxisAlignment.center,
+//                    children: <Widget>[
+//                      Text("Delete Photo",style: TextStyle(color: Colors.red,fontWeight: FontWeight.bold,fontSize: 15),)
+//                    ],
+//                  ),
+//                  onTap: (){
+//                    Navigator.of(context).pop();
+//                  },
+//                ),
+//                Divider(),
                 InkWell(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
