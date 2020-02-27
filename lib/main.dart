@@ -20,6 +20,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(
         fontFamily: 'Roboto',
+        primaryColor: Colors.grey,
       ),
       home: SplashScreen(),
     );

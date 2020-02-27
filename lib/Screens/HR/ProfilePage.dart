@@ -138,7 +138,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             ),
                             buildTextFormField(
                                 "First Name",
-                                20,
+                                15,
                                 TextInputType.text,
                                 fNameController,
                                 true,
@@ -148,7 +148,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 customValidation),
                             buildTextFormField(
                                 "Middle Name",
-                                20,
+                                15,
                                 TextInputType.text,
                                 mNameController,
                                 true,
@@ -158,7 +158,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 customValidation),
                             buildTextFormField(
                                 "family Name",
-                                20,
+                                15,
                                 TextInputType.text,
                                 lNameController,
                                 true,
@@ -168,7 +168,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 customValidation),
                             buildTextFormField(
                                 "E-Mail",
-                                40,
+                                50,
                                 TextInputType.emailAddress,
                                 emailController,
                                 true,
@@ -180,6 +180,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               setState(() {
                                 dropdownValue = newValue;
                                 dropdownValue2 = null;
+                                print("selected country is "+dropdownValue );
                               });
                             }, dropdownValue),
                             buildDropdownButton(City.cities[0][dropdownValue],
@@ -187,6 +188,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               setState(
                                 () {
                                   dropdownValue2 = newValue;
+                                  print("selected city is "+dropdownValue2 );
                                 },
                               );
                             }, dropdownValue2),
@@ -239,6 +241,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                       date = data
                                           .toIso8601String()
                                           .split("T00:00:00.000")[0];
+                                      print("date is "+date);
                                     });
                                   },
                                   onConfirm: (data) {},
@@ -294,6 +297,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                   activeColor: ColorsProvider().primary,
                                   onChanged: (value) {
                                     setSelectedRadio(value);
+                                    print("my value is "+value.toString());
                                   },
                                 ),
                                 Text("Male"),
@@ -306,6 +310,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                   activeColor: ColorsProvider().primary,
                                   onChanged: (value) {
                                     setSelectedRadio(value);
+                                    print("my value is "+value.toString());
                                   },
                                 ),
                                 Text("Famle"),
@@ -325,6 +330,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                   activeColor: ColorsProvider().primary,
                                   onChanged: (value) {
                                     setSelectedRadio2(value);
+                                    print("my value is "+value.toString());
                                   },
                                 ),
                                 Text("Single"),
@@ -337,6 +343,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                   activeColor: ColorsProvider().primary,
                                   onChanged: (value) {
                                     setSelectedRadio2(value);
+                                    print("my value is "+value.toString());
                                   },
                                 ),
                                 Text("Married"),
@@ -344,7 +351,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             ),
                             buildTextFormField(
                                 "Collage Major",
-                                30,
+                                40,
                                 TextInputType.text,
                                 collageMajorController,
                                 true,
@@ -364,7 +371,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 customValidation),
                             buildTextFormField(
                                 "Last Job Title",
-                                25,
+                                35,
                                 TextInputType.text,
                                 jobTitleController,
                                 true,
@@ -374,7 +381,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 customValidation),
                             buildTextFormField(
                                 "Company Name",
-                                30,
+                                40,
                                 TextInputType.text,
                                 companyNameController,
                                 true,
@@ -461,7 +468,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                     onPressed: () async {
                                       // ignore: missing_return
                                       userId =
-                                          await showAlert(context).then((res) {
+                                          await  showAlert(context).then((res) {
                                         userIdString = res.path.substring(
                                             res.path.lastIndexOf("/") + 1);
                                       });

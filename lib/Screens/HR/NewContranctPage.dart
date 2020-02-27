@@ -145,7 +145,7 @@ class _NewContranctPageState extends State<NewContranctPage> {
                     }),
                     buildTextFormField(
                         "Company Name in English",
-                        30,
+                        40,
                         TextInputType.text,
                         companyNameEController,
                         true,
@@ -155,7 +155,7 @@ class _NewContranctPageState extends State<NewContranctPage> {
                         customValidation),
                     buildTextFormField(
                         "Company Name in Arabic",
-                        30,
+                        40,
                         TextInputType.text,
                         companyNameAController,
                         true,
@@ -259,7 +259,7 @@ class _NewContranctPageState extends State<NewContranctPage> {
                         customValidation),
                     buildTextFormField(
                         "Employee Name",
-                        20,
+                        30,
                         TextInputType.text,
                         employeeNameController,
                         true,

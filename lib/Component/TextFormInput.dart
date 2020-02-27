@@ -16,7 +16,7 @@ TextFormField buildTextFormField(String labelText,int inputLength,TextInputType 
     keyboardType: type,
     controller: customController,
     enabled: enabled,
-    textDirection:textDir ,
+    textDirection:textDir,
     validator: validatation,
   );
 }

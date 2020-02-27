@@ -25,7 +25,7 @@ Widget mainDrawer(BuildContext context, String title){
                   ),
                 ),
                 SizedBox(height: 10,),
-                Text("Ahmed Mahmoud",style: TextStyle(color: Colors.black),),
+                Text("Ahmed Mahmoud",style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),),
               ],
             ),
             SizedBox(height: 30,),
@@ -34,7 +34,7 @@ Widget mainDrawer(BuildContext context, String title){
                 children: <Widget>[
                   Icon(HRIcons.user__1_),
                   SizedBox(width: 20,),
-                  Text("Profile"),
+                  Text("Profile",style: TextStyle(fontWeight: FontWeight.bold),),
                 ],
               ),
               onTap: (){
@@ -48,7 +48,7 @@ Widget mainDrawer(BuildContext context, String title){
                 children: <Widget>[
                   Icon(HRIcons.path_10958),
                   SizedBox(width: 20,),
-                  Text("New Contract"),
+                  Text("New Contract",style: TextStyle(fontWeight: FontWeight.bold),),
                 ],
               ),
               onTap: (){
@@ -62,7 +62,7 @@ Widget mainDrawer(BuildContext context, String title){
                 children: <Widget>[
                   Icon(HRIcons.contract),
                   SizedBox(width: 20,),
-                  Text("Contract History"),
+                  Text("Contract History",style: TextStyle(fontWeight: FontWeight.bold),),
                 ],
               ),
               onTap: (){
@@ -76,7 +76,7 @@ Widget mainDrawer(BuildContext context, String title){
                 children: <Widget>[
                   Icon(HRIcons.salary),
                   SizedBox(width: 20,),
-                  Text("Salary"),
+                  Text("Salary",style: TextStyle(fontWeight: FontWeight.bold),),
                 ],
               ),
               onTap: (){
@@ -90,7 +90,7 @@ Widget mainDrawer(BuildContext context, String title){
                 children: <Widget>[
                   Icon(HRIcons.logout),
                   SizedBox(width: 20,),
-                  Text("Logo Out"),
+                  Text("Logo Out",style: TextStyle(fontWeight: FontWeight.bold),),
                 ],
               ),
               onTap: (){
