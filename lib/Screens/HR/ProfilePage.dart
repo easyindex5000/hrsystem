@@ -13,6 +13,8 @@ import 'package:hr/model/userModel.dart';
 import 'package:provider/provider.dart';
 
 class ProfilePage extends StatefulWidget {
+  final String title;
+  ProfilePage(this.title);
   @override
   _ProfilePageState createState() => _ProfilePageState();
 }
@@ -40,6 +42,7 @@ class _ProfilePageState extends State<ProfilePage> {
   TextEditingController nationalityController = new TextEditingController();
   String dropdownValue = City.cities[0].keys.elementAt(0);
   String dropdownValue2;
+
   final _formKey = GlobalKey<FormState>();
   var date = "1980-1-1";
   File _image, userId, cv, certification;
@@ -75,7 +78,7 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: buildAppBar("Profile"),
+      appBar: buildAppBar(widget.title),
       body: FutureBuilder(
           future: HrProvider().getProfile().then((res) {
             fNameController.text = res['data']['first_name'];
@@ -380,6 +383,16 @@ class _ProfilePageState extends State<ProfilePage> {
                                 null,
                                 customValidation),
                             buildTextFormField(
+                                "Last Salary",
+                                35,
+                                TextInputType.text,
+                                jobTitleController,
+                                true,
+                                null,
+                                null,
+                                null,
+                                customValidation),
+                            buildTextFormField(
                                 "Company Name",
                                 40,
                                 TextInputType.text,
@@ -443,7 +456,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 null,
                                 customValidation),
                             buildTextFormField(
-                                "iban Number",
+                                "IBN Number",
                                 20,
                                 TextInputType.number,
                                 ibaNNumberController,
@@ -468,6 +481,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                     onPressed: () async {
                                       // ignore: missing_return
                                       userId =
+                                          // ignore: missing_return
                                           await  showAlert(context).then((res) {
                                         userIdString = res.path.substring(
                                             res.path.lastIndexOf("/") + 1);
@@ -499,6 +513,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                     onPressed: () async {
                                       // ignore: missing_return
                                       certification =
+                                          // ignore: missing_return
                                           await showAlert(context).then((res) {
                                         certificationString = res.path
                                             .substring(
@@ -533,6 +548,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                       cv = await FilePicker.getFile(
                                               type: FileType.CUSTOM,
                                               fileExtension: "pdf")
+                                          // ignore: missing_return
                                           .then((res) {
                                         cvString = res.path.substring(
                                             res.path.lastIndexOf("/") + 1);

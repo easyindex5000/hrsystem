@@ -4,7 +4,7 @@ import 'package:hr/Provider/Colors.dart';
 import 'package:hr/Screens/HR/LoginPage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 TextFormField buildTextFormField(String labelText,int inputLength,TextInputType type,
-    TextEditingController customController,[bool enabled,IconData customIcon,String hintText,TextDirection textDir,FormFieldValidator validatation]) {
+    TextEditingController customController,[bool enabled,IconData customIcon,String hintText,TextDirection textDir,FormFieldValidator validatation,int lines]) {
   return TextFormField(
     decoration: InputDecoration(
         labelText: labelText,
@@ -18,6 +18,7 @@ TextFormField buildTextFormField(String labelText,int inputLength,TextInputType 
     enabled: enabled,
     textDirection:textDir,
     validator: validatation,
+    maxLines: lines,
   );
 }
 AppBar buildAppBar(String title) {

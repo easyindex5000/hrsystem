@@ -4,7 +4,6 @@ import 'package:hr/Provider/Colors.dart';
 import 'package:hr/Provider/HRProvider.dart';
 import 'package:hr/Screens/HR/Home%20HR.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'ForgetPassword.dart';
 class LoginPage extends StatefulWidget {
   @override
@@ -31,6 +30,13 @@ class _LoginPageState extends State<LoginPage> {
                   key: _formKey,
                   child: Column(
                     children: <Widget>[
+                      Container(
+                        width: 200,
+                        height: 200,
+                        child: Image(
+                          image: AssetImage("lib/assets/images/404.png",),
+                        ),
+                      ),
                       TextFormField(
                         maxLength: 45,
                         keyboardType: TextInputType.emailAddress,
@@ -129,28 +135,28 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
-  String _validateEmail(String value) {
-    if (value.isEmpty) {
-      // The form is empty
-      return null;
-    }
-    // This is just a regular expression for email addresses
-    String p = "[a-zA-Z0-9\+\.\_\%\-\+]{1,256}" +
-        "\\@" +
-        "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}" +
-        "(" +
-        "\\." +
-        "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25}" +
-        ")+";
-    RegExp regExp = new RegExp(p);
-
-    if (regExp.hasMatch(value)) {
-      // So, the email is valid
-      return "Please Enter valid email address";
-    }
-
-    // The pattern of the email didn't match the regex above.
-    return 'Email is not valid';
-  }
+//  String _validateEmail(String value) {
+//    if (value.isEmpty) {
+//      // The form is empty
+//      return null;
+//    }
+//    // This is just a regular expression for email addresses
+//    String p = "[a-zA-Z0-9\+\.\_\%\-\+]{1,256}" +
+//        "\\@" +
+//        "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}" +
+//        "(" +
+//        "\\." +
+//        "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25}" +
+//        ")+";
+//    RegExp regExp = new RegExp(p);
+//
+//    if (regExp.hasMatch(value)) {
+//      // So, the email is valid
+//      return "Please Enter valid email address";
+//    }
+//
+//    // The pattern of the email didn't match the regex above.
+//    return 'Email is not valid';
+//  }
 
 }

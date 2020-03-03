@@ -58,11 +58,7 @@ class _ContractHistoryState extends State<ContractHistory> {
                                  if(snapshot.data['data'][index]['contract_status']==0)   IconButton(
                                       icon: Icon(HRIcons.edit),
                                       onPressed: () {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    NewContranctPage()));
+                                        Navigator.push(context, MaterialPageRoute(builder: (context) => NewContranctPage()));
                                       },
                                     ),
                                   ],
@@ -88,11 +84,7 @@ class _ContractHistoryState extends State<ContractHistory> {
                                             )),
                                           ),
                                           onTap: () {
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        NewContranctPage()));
+                                            Navigator.push(context, MaterialPageRoute(builder: (context) => NewContranctPage()));
                                           },
                                         ),
                                         Spacer(),

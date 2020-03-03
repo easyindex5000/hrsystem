@@ -32,6 +32,7 @@ class _NewContranctPageState extends State<NewContranctPage> {
   TextEditingController employeeNumberController = new TextEditingController();
   TextEditingController employeeNameController = new TextEditingController();
   TextEditingController emailController = new TextEditingController();
+  TextEditingController notesController = new TextEditingController();
   String company = "CompanyLogo",
         tax = "VAT ID",
       commercial = "Commercial Number";
@@ -267,6 +268,17 @@ class _NewContranctPageState extends State<NewContranctPage> {
                         null,
                         null,
                         customValidation),
+                    buildTextFormField(
+                        "Notes",
+                        120,
+                        TextInputType.text,
+                        notesController,
+                        true,
+                        null,
+                        null,
+                        null,
+                        null,
+                          3),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[

@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:hr/Screens/HR/LoginPage.dart';
+import 'package:hr/Screens/HR/Home%20HR.dart';
 class SplashScreen extends StatefulWidget {
   _SplashScreenState createState() => _SplashScreenState();
 }
@@ -8,10 +8,12 @@ class _SplashScreenState extends State<SplashScreen> {
   bool loading;
   double progressValue;
   String splash;
+  String splash2;
   @override
   void initState() {
     super.initState();
     splash = "lib/assets/images/SplashScreen.png";
+    splash2 = "lib/assets/images/SplashScreen2.png";
     loading = false;
     progressValue = 0.0;
     updateProgress();
@@ -21,37 +23,32 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Stack(
-        fit: StackFit.expand,
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          Container(decoration: BoxDecoration(color: Colors.white),),
-          Column(
+          Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              Expanded(
-                flex: 2,
-                child: Container(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Container(
-                          width: 300,
-                          height: 200,
-                          child: Image.asset("$splash")),
-                      Padding(padding: EdgeInsets.only(top: 10.0),),
-                      Container(
-                        width: 150,
-                        height: 5,
-                        child: LinearProgressIndicator(
-                            value: progressValue, backgroundColor: Colors.grey,
-                            valueColor: AlwaysStoppedAnimation<Color>(Color(0xff46c1be))),
-                      ),
-                    ],
-                  ),
-                ),
+              Container(
+                width: 150,
+                height: 150,
+                child: Image.asset("$splash"),
+              ),
+              Container(
+                width: 150,
+                height: 150,
+                child: Image.asset("$splash2"),
               ),
             ],
+          ),
+          SizedBox(height: 50,),
+          Container(
+            width: 150,
+            height: 5,
+            child: LinearProgressIndicator(
+                value: progressValue, backgroundColor: Colors.grey,
+                valueColor: AlwaysStoppedAnimation<Color>(Color(0xff46c1be))),
           ),
         ],
       ),
@@ -68,7 +65,7 @@ class _SplashScreenState extends State<SplashScreen> {
           loading = false;
           t.cancel();
           //to Navigate to Home Screen
-          Navigator.of(context).pushReplacement(new MaterialPageRoute(builder: (context) => new LoginPage()));
+          Navigator.of(context).pushReplacement(new MaterialPageRoute(builder: (context) => new HomeScreen()));
         }
       });
     });

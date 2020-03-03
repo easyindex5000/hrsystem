@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:hr/model/userModel.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter/material.dart';
@@ -154,6 +153,7 @@ class HrProvider with ChangeNotifier {
     }
   }
 
+  // ignore: missing_return
   Future<Map<String, dynamic>> getContractTypes() async {
     try {
       SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -171,6 +171,7 @@ class HrProvider with ChangeNotifier {
     }
   }
 
+  // ignore: missing_return
   Future<Map<String, dynamic>> getContractHistpry() async {
     try {
       SharedPreferences prefs = await SharedPreferences.getInstance();
